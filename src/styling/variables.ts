@@ -7,3 +7,7 @@ export const COLORS = {
 export const SIZES = {
     PADDING: '16px',
 };
+
+export const SHADOWS = {
+    GLOW: `0 0 4px ${COLORS.PRIMARY}`,
+};

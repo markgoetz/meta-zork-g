@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
-import { COLORS, SIZES } from '../styling/variables';
+import { COLORS, SIZES, SHADOWS } from '../styling/variables';
 
 const BoxStyle = css({
     borderColor: COLORS.PRIMARY,
@@ -8,6 +8,7 @@ const BoxStyle = css({
     borderStyle: 'solid',
     padding: SIZES.PADDING,
     height: '100%',
+    boxShadow: `${SHADOWS.GLOW}, inset ${SHADOWS.GLOW}`,
 });
 
 type Props = {};

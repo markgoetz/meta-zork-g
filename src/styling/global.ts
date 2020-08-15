@@ -1,4 +1,5 @@
 import { injectGlobal } from 'emotion';
+import { SHADOWS } from './variables';
 
 injectGlobal`
     @font-face {
@@ -17,6 +18,7 @@ injectGlobal`
     }
 
     * {
-        box-sizing: border-box
+        box-sizing: border-box;
+        text-shadow: ${SHADOWS.GLOW};
     }
 `;
