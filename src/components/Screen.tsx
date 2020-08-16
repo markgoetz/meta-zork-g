@@ -8,6 +8,8 @@ import Button from './Button';
 import DoodadList from './DoodadList';
 import ExitList from './ExitList';
 import Inventory from './Inventory';
+import { useState } from 'react';
+import UseItemModal from './UseItemModal';
 
 const screenStyle = css({
     display: 'grid',
@@ -58,75 +60,96 @@ const activityStyle = css({ gridArea: 'activity' });
 const deathwarpStyle = css({ gridArea: 'deathwarp' });
 
 const Screen: React.FunctionComponent<{}> = () => {
+    const [slugToUse, setSlugToUse] = useState<string>();
+
     return (
         <GameState>
-            {(room, inventory, exitDescriptions, actions) => (
-                <div css={screenStyle}>
-                    <main css={mainStyle}>
-                        <div css={descriptionStyle}>
-                            <Box title="Current Room">{(room != null && room.description)}</Box>
-                        </div>
-                        <div css={doodadsStyle}>
-                            <Box title="Doodads">
-                                <DoodadList
-                                    doodads={room?.doodads ?? []}
-                                    onGet={actions.onGet}
-                                    onInspect={actions.onInspect}
-                                />
-                            </Box>
-                        </div>
-                        <div css={exitsStyle}>
-                            <Box title="Exits">
-                                <ExitList
-                                    exits={room?.exits ?? []}
-                                    exitDescriptions={exitDescriptions}
-                                    onMove={actions.onMove}
-                                />
-                            </Box>
-                        </div>
-                        <div css={notesStyle}>
-                            <Box title="Notes">
-                                <DoodadList doodads={room?.notes ?? []} onInspect={actions.onInspect} />
-                            </Box>
-                        </div>
-                        <div css={corpsesStyle}>
-                            <Box title="Corpses">
-                                <DoodadList doodads={room?.corpses ?? []} onInspect={actions.onInspect} />
-                            </Box>
-                        </div>
-                    </main>
-                    <aside css={sidebarStyle}>
-                        {/* TODO Your name and score? */}
-                        <div css={inventoryStyle}>
-                            <Box title="inventory">
-                                <Inventory
-                                    inventory={inventory ?? []}
-                                    onUseSelf={actions.onUseSelf}
-                                    onUseOther={actions.onUseOther}
-                                />
-                            </Box>
-                        </div>
-                        <div css={leaderboardStyle}>
-                            <Box title="Leaderboard">Leaderboard</Box>
-                            {/* TODO Leaderboard modal */}
-                        </div>
-                        <div css={activityStyle}>
-                            <Box title="Activity">Activity</Box>
-                            {/* TODO Activity modal */}
-                        </div>
-                        <div css={deathwarpStyle}>
-                            <Box title="Deathwarp">
-                                <div css={{ textAlign: 'center'}}>
-                                    <Button theme="secondary" onClick={() => actions.onDeathWarp()}>
-                                        Like this image to immediately die
-                                    </Button>
-                                </div>
-                            </Box>
-                        </div>
-                    </aside>
-                    {/* TODO Use Item on Other modal */}
-                </div>
-            )}
+            {(room, inventory, exitDescriptions, actions, repsonse) => {
+                const onSelectItem = (otherSlug: string) => {
+                    if (slugToUse == null) {
+                        return;
+                    }
+
+                    actions.onUseOther(slugToUse, otherSlug);
+                    setSlugToUse(undefined);
+                };
+
+                return (
+                    <div css={screenStyle}>
+                        <main css={mainStyle}>
+                            <div css={descriptionStyle}>
+                                <Box title="Current Room">{(room != null && room.description)}</Box>
+                            </div>
+                            <div css={doodadsStyle}>
+                                <Box title="Doodads">
+                                    <DoodadList
+                                        doodads={room?.doodads ?? []}
+                                        onGet={actions.onGet}
+                                        onInspect={actions.onInspect}
+                                    />
+                                </Box>
+                            </div>
+                            <div css={exitsStyle}>
+                                <Box title="Exits">
+                                    <ExitList
+                                        exits={room?.exits ?? []}
+                                        exitDescriptions={exitDescriptions}
+                                        onMove={actions.onMove}
+                                    />
+                                </Box>
+                            </div>
+                            <div css={notesStyle}>
+                                <Box title="Notes">
+                                    <DoodadList doodads={room?.notes ?? []} onInspect={actions.onInspect} />
+                                </Box>
+                            </div>
+                            <div css={corpsesStyle}>
+                                <Box title="Corpses">
+                                    <DoodadList doodads={room?.corpses ?? []} onInspect={actions.onInspect} />
+                                </Box>
+                            </div>
+                        </main>
+                        <aside css={sidebarStyle}>
+                            {/* TODO Your name and score? */}
+                            <div css={inventoryStyle}>
+                                <Box title="inventory">
+                                    <Inventory
+                                        inventory={inventory ?? []}
+                                        onUseSelf={actions.onUseSelf}
+                                        onUseOther={setSlugToUse}
+                                    />
+                                </Box>
+                            </div>
+                            <div css={leaderboardStyle}>
+                                <Box title="Leaderboard">Leaderboard</Box>
+                                {/* TODO Leaderboard modal */}
+                            </div>
+                            <div css={activityStyle}>
+                                <Box title="Activity">Activity</Box>
+                                {/* TODO Activity modal */}
+                            </div>
+                            <div css={deathwarpStyle}>
+                                <Box title="Deathwarp">
+                                    <div css={{ textAlign: 'center'}}>
+                                        <Button theme="secondary" onClick={() => actions.onDeathWarp()}>
+                                            Like this image to immediately die
+                                        </Button>
+                                    </div>
+                                </Box>
+                            </div>
+                        </aside>
+                        {/* TODO response modal */}
+                        <UseItemModal
+                            slugToUse={slugToUse}
+                            inventory={inventory ?? []}
+                            doodads={room?.doodads ?? []}
+                            onSelectItem={onSelectItem}
+                            onClose={() => setSlugToUse(undefined)}
+                        />
+                    </div>
+                );
+            }
+        }
         </GameState>
     );
 };

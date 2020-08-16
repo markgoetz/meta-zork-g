@@ -2,12 +2,15 @@ export const COLORS = {
     DARK: '#010C0A',
     PRIMARY: '#20E0C2',
     SECONDARY: '#F24541',
-    PRIMARY_TRANSLUCENT: 'rgba(32, 224, 194, .3)',
+    PRIMARY_TRANSLUCENT: 'rgba(32, 224, 194, .16)',
+    DARK_TRANSLUCENT: 'rgba(1, 12, 10, .8)'
 }
 
 export const SIZES = {
+    QUARTER: 4,
     HALF: 8,
     STANDARD: 16,
+    DOUBLE: 32,
 };
 
 export const SHADOWS = {

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { SIZES, SHADOWS, BORDERS } from '../styling/variables';
+import { SIZES, SHADOWS, BORDERS, COLORS } from '../styling/variables';
 
 const boxStyle = css({
     padding: SIZES.STANDARD,
@@ -8,6 +8,7 @@ const boxStyle = css({
     boxShadow: `${SHADOWS.PRIMARY_GLOW}, inset ${SHADOWS.PRIMARY_GLOW}`,
     display: 'flex',
     flexDirection: 'column',
+    backgroundColor: COLORS.PRIMARY_TRANSLUCENT,
     ...BORDERS.PRIMARY,
 });
 

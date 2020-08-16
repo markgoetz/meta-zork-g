@@ -15,14 +15,16 @@ type Props = {
             onInspect: (slug: string) => void,
             onGet: (slug: string) => void,
             onUseSelf: (slug: string) => void,
-            onUseOther: (slug: string) => void,
+            onUseOther: (slug: string, otherSlug: string) => void,
             onDeathWarp: () => void,
-        }
+            onClearResponse: () => void,
+        },
+        response: string | undefined,
     ) => JSX.Element,
 }
 
 const GameState: React.FunctionComponent<Props> = (props) => {
-    const [roomId, setRoomId] = useState(0);
+    const [response, setResponse] = useState<string>();
 
     const actions = {
         onMove: console.log,
@@ -31,7 +33,8 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         onUseSelf: console.log,
         onUseOther: console.log,
         onDeathWarp: console.log,
-    }
+        onClearResponse: () => { setResponse(undefined); },
+    };
     // const [getRoom, room] = useLoadFromApi(roomApi.lookRoom);
     // const [getInventory, inventory] = useLoadFromApi(characterApi.inventory);
 
@@ -39,7 +42,7 @@ const GameState: React.FunctionComponent<Props> = (props) => {
     //     () => {
     //         getRoom();
     //     },
-    //     [roomId, getRoom]
+    //     [getRoom]
     // );
 
     // useEffect(
@@ -87,7 +90,7 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         left: 'Which way is left again?',
     };
 
-    return props.children(room, inventory, exitDescriptions, actions);
+    return props.children(room, inventory, exitDescriptions, actions, response);
 };
 
 export default GameState;

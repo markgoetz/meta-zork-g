@@ -16,6 +16,7 @@ const AppStyle = css({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundImage: `repeating-linear-gradient(to bottom, ${COLORS.DARK} 0, ${COLORS.PRIMARY_TRANSLUCENT} 4px)`,
 });
 
 function App() {

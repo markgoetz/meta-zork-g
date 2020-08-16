@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core'
-import InventoryItem from '../definitions/InventoryItem'
+import { jsx, css } from '@emotion/core';
+import InventoryItem from '../definitions/InventoryItem';
 import Button from './Button';
 import { SIZES } from '../styling/variables';
 import List from './List';
