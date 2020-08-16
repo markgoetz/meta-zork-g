@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core'
+import { jsx, css } from '@emotion/core';
 import { SIZES, SHADOWS, BORDERS } from '../styling/variables';
 
 const boxStyle = css({

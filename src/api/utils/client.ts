@@ -10,6 +10,7 @@ const getClient = () => {
         transformResponse: [
             function(data: any) {
                 console.log(data);
+                return data;
             }
         ],
         baseURL: 'https://nerdzork.nerderylabs.com/api/',

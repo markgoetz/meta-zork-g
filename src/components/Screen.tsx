@@ -3,13 +3,19 @@ import { jsx, css } from '@emotion/core';
 import Box from './Box';
 
 import { SIZES } from '../styling/variables';
+import GameState from './GameState';
+import Button from './Button';
+import DoodadList from './DoodadList';
+import ExitList from './ExitList';
+import Inventory from './Inventory';
 
 const screenStyle = css({
     display: 'grid',
     gridGap: SIZES.STANDARD,
     gridTemplateRows: '100%',
-    gridTemplateColumns: '3fr 1fr',
+    gridTemplateColumns: '2fr 1fr',
     gridTemplateAreas: '"main sidebar"',
+    width: '100%',
     minHeight: '100vh',
     padding: SIZES.STANDARD,
 });
@@ -18,15 +24,12 @@ const mainStyle = css({
     display: 'grid',
     gridGap: SIZES.STANDARD,
     gridArea: 'main',
-    gridTemplateRows: '2fr 1fr 1fr 1fr',
+    gridTemplateRows: '1fr 1fr 1fr',
     gridTemplateColumns: '1fr 1fr',
     gridTemplateAreas: `
         "description description"
-        "description description"
-        "description description"
         "doodads     exits"
-        "notes       exits"
-        "corpses     exits"
+        "notes       corpses"
     `,
 });
 
@@ -56,39 +59,71 @@ const deathwarpStyle = css({ gridArea: 'deathwarp' });
 
 const Screen: React.FunctionComponent<{}> = () => {
     return (
-        <div css={screenStyle}>
-            <main css={mainStyle}>
-                <div css={descriptionStyle}>
-                    <Box title="Current Room">description</Box>
+        <GameState>
+            {(room, inventory, exitDescriptions, actions) => (
+                <div css={screenStyle}>
+                    <main css={mainStyle}>
+                        <div css={descriptionStyle}>
+                            <Box title="Current Room">{(room != null && room.description)}</Box>
+                        </div>
+                        <div css={doodadsStyle}>
+                            <Box title="Doodads">
+                                <DoodadList
+                                    doodads={room?.doodads ?? []}
+                                    onGet={actions.onGet}
+                                    onInspect={actions.onInspect}
+                                />
+                            </Box>
+                        </div>
+                        <div css={notesStyle}>
+                            <Box title="Notes">
+                                <DoodadList doodads={room?.notes ?? []} onInspect={actions.onInspect} />
+                            </Box>
+                        </div>
+                        <div css={corpsesStyle}>
+                            <Box title="Corpses">
+                                <DoodadList doodads={room?.corpses ?? []} onInspect={actions.onInspect} />
+                            </Box>
+                        </div>
+                        <div css={exitsStyle}>
+                            <Box title="Exits">
+                                <ExitList
+                                    exits={room?.exits ?? []}
+                                    exitDescriptions={exitDescriptions}
+                                    onMove={actions.onMove}
+                                />
+                            </Box>
+                        </div>
+                    </main>
+                    <aside css={sidebarStyle}>
+                        <div css={inventoryStyle}>
+                            <Box title="inventory">
+                                <Inventory
+                                    inventory={inventory ?? []}
+                                    onUseSelf={actions.onUseSelf}
+                                    onUseOther={actions.onUseOther}
+                                />
+                            </Box>
+                        </div>
+                        <div css={leaderboardStyle}>
+                            <Box title="Leaderboard">Leaderboard</Box>
+                        </div>
+                        <div css={activityStyle}>
+                            <Box title="Activity">Activity</Box>
+                        </div>
+                        <div css={deathwarpStyle}>
+                            <Box title="Deathwarp">
+                                <div css={{ textAlign: 'center'}}>
+                                    <Button theme="secondary" onClick={() => actions.onDeathWarp()}>
+                                        Like this image to immediately die
+                                    </Button>
+                                </div>
+                            </Box>
+                        </div>
+                    </aside>
                 </div>
-                <div css={doodadsStyle}>
-                    <Box title="Doodads">Doodads</Box>
-                </div>
-                <div css={notesStyle}>
-                    <Box title="Notes">Notes</Box>
-                </div>
-                <div css={corpsesStyle}>
-                    <Box title="Corpses">Corpses</Box>
-                </div>
-                <div css={exitsStyle}>
-                    <Box title="Exits">Exits</Box>
-                </div>
-            </main>
-            <aside css={sidebarStyle}>
-                <div css={inventoryStyle}>
-                    <Box title="inventory">Inventory</Box>
-                </div>
-                <div css={leaderboardStyle}>
-                    <Box title="Leaderboard">Leaderboard</Box>
-                </div>
-                <div css={activityStyle}>
-                    <Box title="Activity">Activity</Box>
-                </div>
-                <div css={deathwarpStyle}>
-                    <Box title="Deathwarp">Deathwarp</Box>
-                </div>
-            </aside>
-        </div>
+            )}
+        </GameState>
     );
 };
 

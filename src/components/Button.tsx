@@ -24,6 +24,9 @@ const secondaryStyle = css({
     boxShadow: `${SHADOWS.SECONDARY_GLOW}, inset ${SHADOWS.SECONDARY_GLOW}`,
     color: COLORS.SECONDARY,
     textShadow: SHADOWS.SECONDARY_GLOW,
+    '&:hover, &:focus': {
+        backgroundColor: COLORS.SECONDARY,
+    }
 });
 
 type Props = React.HTMLProps<HTMLButtonElement> & {

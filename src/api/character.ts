@@ -4,6 +4,7 @@ import Response from '../definitions/Response';
 import Score from '../definitions/Score';
 import Adventurer from '../definitions/Adventurer';
 import Activity from '../definitions/Activity';
+import InventoryItem from '../definitions/InventoryItem';
 
 type AdventurerObject = {
     adventurer: Adventurer,
@@ -17,8 +18,8 @@ const me = async () => {
 
 const inventory = async () => {
     const client = getClient();
-    const response = await(client.get(CHARACTER.INVENTORY)) as Response<any[]>;
-    return response;
+    const response = await(client.get(CHARACTER.INVENTORY)) as Response<InventoryItem[]>;
+    return response.response;
 };
 
 const origin = async () => {
