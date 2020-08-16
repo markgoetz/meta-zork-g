@@ -1,5 +1,5 @@
 import { injectGlobal } from 'emotion';
-import { FONTS, SHADOWS } from './variables';
+import { FONTS, SHADOWS, SIZES } from './variables';
 
 injectGlobal`
     @font-face {
@@ -13,6 +13,7 @@ injectGlobal`
 
     html, body {
         font-family: ${FONTS.PRIMARY};
+        font-size: ${SIZES.STANDARD};
         margin: 0;
         height: 100%;
     }

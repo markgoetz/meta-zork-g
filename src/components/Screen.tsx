@@ -96,6 +96,7 @@ const Screen: React.FunctionComponent<{}> = () => {
                         </div>
                     </main>
                     <aside css={sidebarStyle}>
+                        {/* TODO Your name and score? */}
                         <div css={inventoryStyle}>
                             <Box title="inventory">
                                 <Inventory
@@ -107,9 +108,11 @@ const Screen: React.FunctionComponent<{}> = () => {
                         </div>
                         <div css={leaderboardStyle}>
                             <Box title="Leaderboard">Leaderboard</Box>
+                            {/* TODO Leaderboard modal */}
                         </div>
                         <div css={activityStyle}>
                             <Box title="Activity">Activity</Box>
+                            {/* TODO Activity modal */}
                         </div>
                         <div css={deathwarpStyle}>
                             <Box title="Deathwarp">
@@ -121,6 +124,7 @@ const Screen: React.FunctionComponent<{}> = () => {
                             </Box>
                         </div>
                     </aside>
+                    {/* TODO Use Item on Other modal */}
                 </div>
             )}
         </GameState>

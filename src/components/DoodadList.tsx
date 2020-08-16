@@ -32,7 +32,7 @@ const DoodadList: React.FunctionComponent<Props> = ({ doodads, onGet, onInspect 
             doodad => (
                 <li key={doodad.slug}>
                     <div css={itemStyle}>
-                        <div css={bulletStyle}>{doodad.lookMessage}</div>
+                        <div css={bulletStyle}>{doodad.lookMessage} ({doodad.slug})</div>
                         <Button type="button" onClick={() => onInspect(doodad.slug)}>Inspect</Button>
                         {onGet && (
                             <Button type="button" onClick={() => onGet(doodad.slug)}>Get</Button>

@@ -32,7 +32,7 @@ const Inventory: React.FunctionComponent<Props> = ({ inventory, onUseSelf, onUse
             item => (
                 <li key={item.slug}>
                     <div css={itemStyle}>
-                        <div css={bulletStyle}>{item.inventoryMessage}</div>
+                        <div css={bulletStyle}>{item.inventoryMessage} ({item.slug})</div>
                         <Button type="button" onClick={() => onUseSelf(item.slug)}>Use Self</Button>
                         <Button type="button" onClick={() => onUseOther(item.slug)}>Use Other</Button>
                     </div>
