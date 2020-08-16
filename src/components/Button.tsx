@@ -21,15 +21,30 @@ const secondaryStyle = css({
     }
 });
 
+const linkStyle = css({
+    border: 'none',
+    boxShadow: 'none',
+    '&:hover, &:focus': {
+        backgroundColor: COLORS.PRIMARY_TRANSLUCENT,
+        color: COLORS.PRIMARY,
+    },
+});
+
 type Props = React.HTMLProps<HTMLButtonElement> & {
-    theme?: 'primary' | 'secondary',
+    theme?: 'primary' | 'secondary' | 'link',
     type?: 'submit' | 'button' | 'reset',
 };
 
 const Button: React.FunctionComponent<Props> = (props) => {
     const { children, theme, ...buttonProps } = props;
 
-    const style = (theme === 'primary') ? buttonStyle : [buttonStyle, secondaryStyle];
+    const style = [buttonStyle];
+    if (theme === 'secondary') {
+        style.push(secondaryStyle);
+    }
+    if  (theme === 'link') {
+        style.push(linkStyle);
+    }
 
     return (
         <button {...buttonProps} css={style}>

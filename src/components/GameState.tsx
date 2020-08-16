@@ -24,7 +24,7 @@ type Props = {
 }
 
 const GameState: React.FunctionComponent<Props> = (props) => {
-    const [response, setResponse] = useState<string>();
+    const [response, setResponse] = useState<string | undefined>('hello');
 
     const actions = {
         onMove: console.log,

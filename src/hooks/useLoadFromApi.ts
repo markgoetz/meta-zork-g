@@ -5,6 +5,7 @@ const useLoadFromApi = <T>(apiMethod: () => Promise<T>): [() => void, T | null] 
 
     const callApiMethod = useCallback(
         async() => {
+            setValue(null);
             const response = await apiMethod();
             setValue(response);
         },

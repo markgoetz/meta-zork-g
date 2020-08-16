@@ -14,6 +14,7 @@ type Props = React.HTMLProps<HTMLSelectElement> & {
 };
 
 const containerStyle = css({
+    position: 'relative',
     '::after': {
         content: '""',
         borderStyle: 'solid',
@@ -24,9 +25,10 @@ const containerStyle = css({
         borderTopColor: COLORS.PRIMARY,
         pointerEvents: 'none',
         outline: SHADOWS.PRIMARY_GLOW,
-        position: 'relative',
-        top: SIZES.QUARTER + SIZES.HALF,
-        right: SIZES.HALF + SIZES.STANDARD,
+        position: 'absolute',
+        top: '50%',
+        bottom: '50%',
+        right: SIZES.STANDARD,
     }
 });
 
@@ -34,6 +36,7 @@ const selectStyle = css({
     ...INPUT,
     paddingRight: SIZES.DOUBLE,
     appearance: 'none',
+    width: '100%',
 });
 
 const optionStyle = css({

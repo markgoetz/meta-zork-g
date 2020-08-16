@@ -1,10 +1,15 @@
 import { COLORS, BORDERS, SHADOWS, FONTS, SIZES } from './variables';
 
-export const INPUT = {
-    backgroundColor: 'transparent',
-    color: COLORS.PRIMARY,
+export const BORDER = {
     ...BORDERS.PRIMARY,
     boxShadow: `${SHADOWS.PRIMARY_GLOW}, inset ${SHADOWS.PRIMARY_GLOW}`,
+    padding: SIZES.STANDARD,
+};
+
+export const INPUT = {
+    ...BORDER,
+    backgroundColor: 'transparent',
+    color: COLORS.PRIMARY,
     textShadow: SHADOWS.PRIMARY_GLOW,
     fontFamily: FONTS.PRIMARY,
     fontSize: SIZES.STANDARD,

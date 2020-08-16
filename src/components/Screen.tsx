@@ -10,6 +10,7 @@ import ExitList from './ExitList';
 import Inventory from './Inventory';
 import { useState } from 'react';
 import UseItemModal from './UseItemModal';
+import ResponseModal from './ResponseModal';
 
 const screenStyle = css({
     display: 'grid',
@@ -64,7 +65,7 @@ const Screen: React.FunctionComponent<{}> = () => {
 
     return (
         <GameState>
-            {(room, inventory, exitDescriptions, actions, repsonse) => {
+            {(room, inventory, exitDescriptions, actions, response) => {
                 const onSelectItem = (otherSlug: string) => {
                     if (slugToUse == null) {
                         return;
@@ -132,13 +133,13 @@ const Screen: React.FunctionComponent<{}> = () => {
                                 <Box title="Deathwarp">
                                     <div css={{ textAlign: 'center'}}>
                                         <Button theme="secondary" onClick={() => actions.onDeathWarp()}>
-                                            Like this image to immediately die
+                                            Click to instantly die
                                         </Button>
                                     </div>
                                 </Box>
                             </div>
                         </aside>
-                        {/* TODO response modal */}
+                        <ResponseModal response={response} onClose={actions.onClearResponse} />
                         <UseItemModal
                             slugToUse={slugToUse}
                             inventory={inventory ?? []}

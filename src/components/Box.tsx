@@ -1,15 +1,15 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { SIZES, SHADOWS, BORDERS, COLORS } from '../styling/variables';
+import { BORDER } from '../styling/common';
+import { SIZES, COLORS } from '../styling/variables';
 
 const boxStyle = css({
+    ...BORDER,
     padding: SIZES.STANDARD,
     height: '100%',
-    boxShadow: `${SHADOWS.PRIMARY_GLOW}, inset ${SHADOWS.PRIMARY_GLOW}`,
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: COLORS.PRIMARY_TRANSLUCENT,
-    ...BORDERS.PRIMARY,
 });
 
 const titleStyle = css({

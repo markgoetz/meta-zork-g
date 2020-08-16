@@ -1,11 +1,13 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import InventoryItem from '../definitions/InventoryItem';
 import Doodad from '../definitions/Doodad';
 import Modal from './Modal';
 import { useState } from 'react';
 import Button from './Button';
 import Select from './Select';
+import HList from './HList';
+import VList from './VList';
 
 type Props = {
     slugToUse?: string;
@@ -38,11 +40,16 @@ const UseItemModal: React.FunctionComponent<Props> = (props) => {
     return (
         <Modal title="Use Item" isOpen={slugToUse != null} onClose={onClose}>
             <form onSubmit={onSubmit}>
-                <label>
-                    <div>Select an item to use {slugToUse} on.</div>
-                    <Select onSelectChange={setOtherSlug} value={otherSlug} options={options} />
-                </label>
-                <Button type="submit">Use it</Button>
+                <VList>
+                    <label>
+                        <div>Select an item to use {slugToUse} on.</div>
+                        <Select onSelectChange={setOtherSlug} value={otherSlug} options={options} />
+                    </label>
+                    <HList>
+                        <Button type="button" theme="link" onClick={onClose}>Cancel</Button>
+                        <Button type="submit">Use it</Button>
+                    </HList>
+                </VList>
             </form>
         </Modal>
     );
