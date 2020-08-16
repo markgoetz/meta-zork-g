@@ -1,5 +1,5 @@
 import { injectGlobal } from 'emotion';
-import { SHADOWS } from './variables';
+import { FONTS, SHADOWS } from './variables';
 
 injectGlobal`
     @font-face {
@@ -12,13 +12,13 @@ injectGlobal`
     }
 
     html, body {
-        font-family: 'Fira Mono', monospace;
+        font-family: ${FONTS.PRIMARY};
         margin: 0;
         height: 100%;
     }
 
     * {
         box-sizing: border-box;
-        text-shadow: ${SHADOWS.GLOW};
+        text-shadow: ${SHADOWS.PRIMARY_GLOW};
     }
 `;

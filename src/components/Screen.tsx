@@ -6,19 +6,19 @@ import { SIZES } from '../styling/variables';
 
 const screenStyle = css({
     display: 'grid',
-    gridGap: SIZES.PADDING,
+    gridGap: SIZES.STANDARD,
     gridTemplateRows: '100%',
     gridTemplateColumns: '3fr 1fr',
     gridTemplateAreas: '"main sidebar"',
     minHeight: '100vh',
-    padding: SIZES.PADDING,
+    padding: SIZES.STANDARD,
 });
 
 const mainStyle = css({
     display: 'grid',
-    gridGap: SIZES.PADDING,
+    gridGap: SIZES.STANDARD,
     gridArea: 'main',
-    gridTemplateRows: '3fr 1fr 1fr 1fr',
+    gridTemplateRows: '2fr 1fr 1fr 1fr',
     gridTemplateColumns: '1fr 1fr',
     gridTemplateAreas: `
         "description description"
@@ -32,9 +32,9 @@ const mainStyle = css({
 
 const sidebarStyle = css({
     display: 'grid',
-    gridGap: SIZES.PADDING,
+    gridGap: SIZES.STANDARD,
     gridArea: 'sidebar',
-    gridTemplateRows: '2fr 1fr 1fr 1fr',
+    gridTemplateRows: '2fr 1fr 1fr auto',
     gridTemplateAreas: `
         "inventory"
         "inventory"
@@ -54,32 +54,39 @@ const leaderboardStyle = css({ gridArea: 'leaderboard' });
 const activityStyle = css({ gridArea: 'activity' });
 const deathwarpStyle = css({ gridArea: 'deathwarp' });
 
-
 const Screen: React.FunctionComponent<{}> = () => {
     return (
         <div css={screenStyle}>
             <main css={mainStyle}>
                 <div css={descriptionStyle}>
-                    <Box>description</Box>
+                    <Box title="Current Room">description</Box>
                 </div>
                 <div css={doodadsStyle}>
-                    <Box>Doodads</Box>
+                    <Box title="Doodads">Doodads</Box>
                 </div>
                 <div css={notesStyle}>
-                    <Box>Notes</Box>
+                    <Box title="Notes">Notes</Box>
                 </div>
                 <div css={corpsesStyle}>
-                    <Box>Corpses</Box>
+                    <Box title="Corpses">Corpses</Box>
                 </div>
                 <div css={exitsStyle}>
-                    <Box>Exits</Box>
+                    <Box title="Exits">Exits</Box>
                 </div>
             </main>
             <aside css={sidebarStyle}>
-                <div css={inventoryStyle}><Box>Inventory</Box></div>
-                <div css={leaderboardStyle}><Box>Leaderboard</Box></div>
-                <div css={activityStyle}><Box>Activity</Box></div>
-                <div css={deathwarpStyle}><Box>Deathwarp</Box></div>
+                <div css={inventoryStyle}>
+                    <Box title="inventory">Inventory</Box>
+                </div>
+                <div css={leaderboardStyle}>
+                    <Box title="Leaderboard">Leaderboard</Box>
+                </div>
+                <div css={activityStyle}>
+                    <Box title="Activity">Activity</Box>
+                </div>
+                <div css={deathwarpStyle}>
+                    <Box title="Deathwarp">Deathwarp</Box>
+                </div>
             </aside>
         </div>
     );

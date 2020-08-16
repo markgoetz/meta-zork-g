@@ -1,21 +1,36 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
-import { COLORS, SIZES, SHADOWS } from '../styling/variables';
+import { SIZES, SHADOWS, BORDERS } from '../styling/variables';
 
-const BoxStyle = css({
-    borderColor: COLORS.PRIMARY,
-    borderWidth: '2px',
-    borderStyle: 'solid',
-    padding: SIZES.PADDING,
+const boxStyle = css({
+    padding: SIZES.STANDARD,
     height: '100%',
-    boxShadow: `${SHADOWS.GLOW}, inset ${SHADOWS.GLOW}`,
+    boxShadow: `${SHADOWS.PRIMARY_GLOW}, inset ${SHADOWS.PRIMARY_GLOW}`,
+    display: 'flex',
+    flexDirection: 'column',
+    ...BORDERS.PRIMARY,
 });
 
-type Props = {};
+const titleStyle = css({
+    flexGrow: 0,
+    textAlign: 'center',
+    fontSize: '20px',
+    marginBottom: SIZES.STANDARD,
+});
+
+const contentsStyle = css({
+    flexGrow: 1,
+    overflowY: 'auto',
+});
+
+type Props = {
+    title: string,
+};
 
 const Box: React.FunctionComponent<Props> = props => (
-    <div css={BoxStyle}>
-        {props.children}
+    <div css={boxStyle}>
+        <div css={titleStyle}>{props.title}</div>
+        <div css={contentsStyle}>{props.children}</div>
     </div>
 );
 
