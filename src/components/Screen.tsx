@@ -75,6 +75,15 @@ const Screen: React.FunctionComponent<{}> = () => {
                                 />
                             </Box>
                         </div>
+                        <div css={exitsStyle}>
+                            <Box title="Exits">
+                                <ExitList
+                                    exits={room?.exits ?? []}
+                                    exitDescriptions={exitDescriptions}
+                                    onMove={actions.onMove}
+                                />
+                            </Box>
+                        </div>
                         <div css={notesStyle}>
                             <Box title="Notes">
                                 <DoodadList doodads={room?.notes ?? []} onInspect={actions.onInspect} />
@@ -83,15 +92,6 @@ const Screen: React.FunctionComponent<{}> = () => {
                         <div css={corpsesStyle}>
                             <Box title="Corpses">
                                 <DoodadList doodads={room?.corpses ?? []} onInspect={actions.onInspect} />
-                            </Box>
-                        </div>
-                        <div css={exitsStyle}>
-                            <Box title="Exits">
-                                <ExitList
-                                    exits={room?.exits ?? []}
-                                    exitDescriptions={exitDescriptions}
-                                    onMove={actions.onMove}
-                                />
                             </Box>
                         </div>
                     </main>
