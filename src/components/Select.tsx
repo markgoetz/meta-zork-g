@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { BORDERS, FONTS, SHADOWS, COLORS, SIZES } from '../styling/variables';
+import { SHADOWS, COLORS, SIZES } from '../styling/variables';
+import { INPUT } from '../styling/common';
 
 type Option = {
     label: string,
@@ -30,18 +31,9 @@ const containerStyle = css({
 });
 
 const selectStyle = css({
-    ...BORDERS.PRIMARY,
-    backgroundColor: 'transparent',
-    color: COLORS.PRIMARY,
-    padding: SIZES.HALF,
+    ...INPUT,
     paddingRight: SIZES.DOUBLE,
-    fontFamily: FONTS.PRIMARY,
-    fontSize: SIZES.STANDARD,
-    boxShadow: `${SHADOWS.PRIMARY_GLOW}, inset ${SHADOWS.PRIMARY_GLOW}`,
-    textShadow: SHADOWS.PRIMARY_GLOW,
     appearance: 'none',
-    cursor: 'pointer',
-    backgroundImage: ''
 });
 
 const optionStyle = css({

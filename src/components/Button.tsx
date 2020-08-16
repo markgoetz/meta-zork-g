@@ -1,18 +1,10 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { COLORS, BORDERS, SHADOWS, FONTS, SIZES } from '../styling/variables';
+import { COLORS, BORDERS, SHADOWS } from '../styling/variables';
+import { INPUT } from '../styling/common';
 
 const buttonStyle = css({
-    backgroundColor: 'transparent',
-    color: COLORS.PRIMARY,
-    ...BORDERS.PRIMARY,
-    boxShadow: `${SHADOWS.PRIMARY_GLOW}, inset ${SHADOWS.PRIMARY_GLOW}`,
-    textShadow: SHADOWS.PRIMARY_GLOW,
-    fontFamily: FONTS.PRIMARY,
-    fontSize: SIZES.STANDARD,
-    padding: `${SIZES.HALF}px ${SIZES.STANDARD}px`,
-    cursor: 'pointer',
-    transition: 'background-color .25s, color .25s',
+    ...INPUT,
     '&:hover, &:focus': {
         backgroundColor: COLORS.PRIMARY,
         color: COLORS.DARK,
