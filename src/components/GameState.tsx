@@ -13,13 +13,14 @@ type Props = {
         inventory: InventoryItem[] | null,
         exitDescriptions: { [key: string]: string },
         actions: { 
-            onMove: (direction: string) => void,
-            onInspect: (slug: string) => void,
-            onGet: (slug: string) => void,
-            onUseSelf: (slug: string) => void,
-            onUseOther: (slug: string, otherSlug: string) => void,
-            onDeathWarp: () => void,
-            onClearResponse: () => void,
+            move: (direction: string) => void,
+            inspect: (slug: string) => void,
+            get: (slug: string) => void,
+            useOnSelf: (slug: string) => void,
+            useOnOther: (slug: string, otherSlug: string) => void,
+            deathwarp: () => void,
+            writeNote: (contents: string) => void,
+            clearResponse: () => void,
         },
         response: string | undefined,
     ) => JSX.Element,
@@ -56,6 +57,7 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         const responseFromUse = await doodadApi.useOnSelf(slug);
         setResponse(responseFromUse);
         getInventory();
+        getRoom();
     };
 
     const useOnOther = async(slug: string, otherSlug: string) => {
@@ -70,6 +72,11 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         setResponse(responseFromDeathwarp);
         getInventory();
         getRoom();
+    };
+
+    const writeNote = async(contents: string) => {
+        const responseFromNoteWrite = await roomApi.note(contents);
+        setResponse(responseFromNoteWrite);
     };
 
     const updateExits = useCallback(
@@ -91,13 +98,14 @@ const GameState: React.FunctionComponent<Props> = (props) => {
     );
 
     const actions = {
-        onMove: move,
-        onInspect: inspect,
-        onGet: get,
-        onUseSelf: useOnSelf,
-        onUseOther: useOnOther,
-        onDeathWarp: deathwarp,
-        onClearResponse: () => { setResponse(undefined); },
+        move,
+        inspect,
+        get,
+        useOnSelf,
+        useOnOther,
+        deathwarp,
+        writeNote,
+        clearResponse: () => { setResponse(undefined); },
     };
 
     useEffect(

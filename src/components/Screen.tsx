@@ -11,6 +11,8 @@ import Inventory from './Inventory';
 import { useState } from 'react';
 import UseItemModal from './UseItemModal';
 import ResponseModal from './ResponseModal';
+import WriteNoteModal from './WriteNoteModal';
+import VList from './VList';
 
 const screenStyle = css({
     display: 'grid',
@@ -62,6 +64,10 @@ const deathwarpStyle = css({ gridArea: 'deathwarp' });
 
 const Screen: React.FunctionComponent<{}> = () => {
     const [slugToUse, setSlugToUse] = useState<string>();
+    const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+
+    const openNoteModal = () => { setIsNoteModalOpen(true); };
+    const closeNoteModal = () => { setIsNoteModalOpen(false); };
 
     return (
         <GameState>
@@ -71,7 +77,7 @@ const Screen: React.FunctionComponent<{}> = () => {
                         return;
                     }
 
-                    actions.onUseOther(slugToUse, otherSlug);
+                    actions.useOnOther(slugToUse, otherSlug);
                     setSlugToUse(undefined);
                 };
 
@@ -79,15 +85,24 @@ const Screen: React.FunctionComponent<{}> = () => {
                     <div css={screenStyle}>
                         <main css={mainStyle}>
                             <div css={descriptionStyle}>
-                                <Box title="Current Room">{(room != null && room.description)}</Box>
-                                {/* TODO: Write a note */}
+                                <Box title="Current Room">
+                                    <VList>
+                                        <div>{(room != null && room.description)}</div>
+                                        <Button onClick={openNoteModal}>Write a Lovely Note</Button>
+                                    </VList>
+                                </Box>
+                                <WriteNoteModal
+                                    isOpen={isNoteModalOpen}
+                                    onClose={closeNoteModal}
+                                    onWrite={actions.writeNote}
+                                />
                             </div>
                             <div css={doodadsStyle}>
                                 <Box title="Doodads">
                                     <DoodadList
                                         doodads={room?.doodads ?? []}
-                                        onGet={actions.onGet}
-                                        onInspect={actions.onInspect}
+                                        onGet={actions.get}
+                                        onInspect={actions.inspect}
                                     />
                                 </Box>
                             </div>
@@ -96,18 +111,18 @@ const Screen: React.FunctionComponent<{}> = () => {
                                     <ExitList
                                         exits={room?.exits ?? []}
                                         exitDescriptions={exitDescriptions}
-                                        onMove={actions.onMove}
+                                        onMove={actions.move}
                                     />
                                 </Box>
                             </div>
                             <div css={notesStyle}>
                                 <Box title="Notes">
-                                    <DoodadList doodads={room?.notes ?? []} onInspect={actions.onInspect} />
+                                    <DoodadList doodads={room?.notes ?? []} onInspect={actions.inspect} />
                                 </Box>
                             </div>
                             <div css={corpsesStyle}>
                                 <Box title="Corpses">
-                                    <DoodadList doodads={room?.corpses ?? []} onInspect={actions.onInspect} />
+                                    <DoodadList doodads={room?.corpses ?? []} onInspect={actions.inspect} />
                                 </Box>
                             </div>
                         </main>
@@ -117,7 +132,7 @@ const Screen: React.FunctionComponent<{}> = () => {
                                 <Box title="inventory">
                                     <Inventory
                                         inventory={inventory ?? []}
-                                        onUseSelf={actions.onUseSelf}
+                                        onUseSelf={actions.useOnSelf}
                                         onUseOther={setSlugToUse}
                                     />
                                 </Box>
@@ -133,14 +148,14 @@ const Screen: React.FunctionComponent<{}> = () => {
                             <div css={deathwarpStyle}>
                                 <Box title="Deathwarp">
                                     <div css={{ textAlign: 'center'}}>
-                                        <Button theme="secondary" onClick={() => actions.onDeathWarp()}>
+                                        <Button theme="secondary" onClick={() => actions.deathwarp()}>
                                             Click to instantly die
                                         </Button>
                                     </div>
                                 </Box>
                             </div>
                         </aside>
-                        <ResponseModal response={response} onClose={actions.onClearResponse} />
+                        <ResponseModal response={response} onClose={actions.clearResponse} />
                         <UseItemModal
                             slugToUse={slugToUse}
                             inventory={inventory ?? []}
