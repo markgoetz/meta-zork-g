@@ -11,7 +11,10 @@ const getClient = () => {
             function(data: any) {
                 console.log(data);
                 return data;
-            }
+            },
+            function(data: any) {
+                return JSON.parse(data);
+            },
         ],
         baseURL: 'https://nerdzork.nerderylabs.com/api/',
     });

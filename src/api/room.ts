@@ -6,19 +6,19 @@ import Room from '../definitions/Room';
 const lookRoom = async() => {
     const client = getClient();
     const response = await client.post(ROOM.LOOK, {}) as Response<Room>;
-    return response.response;
+    return response.data.response;
 };
 
 const lookDirection = async(direction: string) => {
     const client = getClient();
     const response = await client.post(ROOM.LOOK, { direction }) as Response<string>;
-    return response.response;
+    return response.data.response;
 };
 
 const move = async (direction: string) => {
     const client = getClient();
     const response = await client.post(ROOM.MOVE, { direction }) as Response<string>;
-    return response.response;
+    return response.data.response;
 };
 
 const note = async(note: string) => {

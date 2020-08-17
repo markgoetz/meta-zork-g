@@ -24,7 +24,7 @@ type Props = {
 }
 
 const GameState: React.FunctionComponent<Props> = (props) => {
-    const [response, setResponse] = useState<string | undefined>('hello');
+    const [response, setResponse] = useState<string>();
 
     const actions = {
         onMove: console.log,
@@ -35,55 +35,23 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         onDeathWarp: console.log,
         onClearResponse: () => { setResponse(undefined); },
     };
-    // const [getRoom, room] = useLoadFromApi(roomApi.lookRoom);
-    // const [getInventory, inventory] = useLoadFromApi(characterApi.inventory);
+    
+    const [getRoom, room] = useLoadFromApi(roomApi.lookRoom);
+    const [getInventory, inventory] = useLoadFromApi(characterApi.inventory);
 
-    // useEffect(
-    //     () => {
-    //         getRoom();
-    //     },
-    //     [getRoom]
-    // );
+    useEffect(
+        () => {
+            getRoom();
+        },
+        [getRoom]
+    );
 
-    // useEffect(
-    //     () => {
-    //         getInventory();
-    //     },
-    //     [getInventory],
-    // )
-
-    const room: Room = {
-        description: 'Hello I am description',
-        notes: [
-            { slug: 'note-1', lookMessage: 'MASTER USING IT AND YOU CAN HAVE THIS' },
-            { slug: 'note-2', lookMessage: 'IT\'S A SECRET TO EVERYONE' },
-            { slug: 'note-3', lookMessage: 'GRUMBLE, GRUMBLE' },
-            { slug: 'note-4', lookMessage: 'GO TO THE NEXT ROOM' },
-        ],
-        doodads: [
-            { slug: '1-1', lookMessage: 'GRAPPLE BEAM' },
-            { slug: '2-1', lookMessage: 'ICEROD' },
-            { slug: '3-1', lookMessage: 'MORPH BALL' },
-            { slug: '4-1', lookMessage: 'HOOKSHOT' },
-        ],
-        corpses: [
-            { slug: '1', lookMessage: 'ZOMBIE' },
-            { slug: '2', lookMessage: 'ZOMBIE' },
-            { slug: '3', lookMessage: 'ZOMBIE' },
-            { slug: '4', lookMessage: 'ZOMBIE' },
-        ],
-        exits: [
-            'south',
-            'left',
-        ],
-    };
-
-    const inventory: InventoryItem[] = [
-        { slug: '123', inventoryMessage: 'hello '},
-        { slug: '1234', inventoryMessage: 'hello '},
-        { slug: '1235', inventoryMessage: 'hello '},
-        { slug: '1236', inventoryMessage: 'hello '},
-    ];
+    useEffect(
+        () => {
+            getInventory();
+        },
+        [getInventory],
+    )
 
     const exitDescriptions = {
         south: 'You see a path to the south',

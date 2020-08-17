@@ -13,13 +13,13 @@ type AdventurerObject = {
 const me = async () => {
     const client = getClient();
     const response = await client.get(CHARACTER.ME) as Response<AdventurerObject>;
-    return response.response.adventurer;
+    return response.data.response.adventurer;
 };
 
 const inventory = async () => {
     const client = getClient();
     const response = await(client.get(CHARACTER.INVENTORY)) as Response<InventoryItem[]>;
-    return response.response;
+    return response.data.response;
 };
 
 const origin = async () => {
@@ -35,19 +35,19 @@ const rename = async (name: string) => {
 const leaderboard = async () => {
     const client = getClient();
     const response = await client.get(CHARACTER.LEADERBOARD) as Response<Score[]>;
-    return response.response;
+    return response.data.response;
 };
 
 const loserboard = async () => {
     const client = getClient();
     const response = await client.get(CHARACTER.LOSERBOARD) as Response<Score[]>;
-    return response.response;
+    return response.data.response;
 };
 
 const activity = async () => {
     const client = getClient();
     const response = await client.get(CHARACTER.ACTIVITY) as Response<Activity[]>;
-    return response.response;
+    return response.data.response;
 };
 
 export default {
