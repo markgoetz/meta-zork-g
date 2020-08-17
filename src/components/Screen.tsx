@@ -80,6 +80,7 @@ const Screen: React.FunctionComponent<{}> = () => {
                         <main css={mainStyle}>
                             <div css={descriptionStyle}>
                                 <Box title="Current Room">{(room != null && room.description)}</Box>
+                                {/* TODO: Write a note */}
                             </div>
                             <div css={doodadsStyle}>
                                 <Box title="Doodads">
