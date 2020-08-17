@@ -30,22 +30,36 @@ const usedItemStyle = css({
     textDecoration: 'line-through',
 });
 
-const Inventory: React.FunctionComponent<Props> = ({ inventory, onUseSelf, onUseOther }) => (
-    <List>
-        {inventory.map(
-            item => (
-                <li key={item.slug}>
-                    <div css={itemStyle}>
-                        <div css={item.neverUsed ? bulletStyle : [bulletStyle, usedItemStyle]}>
-                            {item.inventoryMessage} ({item.slug})
+const Inventory: React.FunctionComponent<Props> = ({ inventory, onUseSelf, onUseOther }) => {
+    const sortedInventory = inventory.sort(
+        (itemA, itemB) => {
+            if (itemA.neverUsed && !itemB.neverUsed) {
+                return -1;
+            }
+            if (!itemA.neverUsed && itemB.neverUsed) {
+                return 1;
+            }
+            return 0;
+        }
+    );
+    
+    return (
+        <List>
+            {sortedInventory.map(
+                item => (
+                    <li key={item.slug}>
+                        <div css={itemStyle}>
+                            <div css={item.neverUsed ? bulletStyle : [bulletStyle, usedItemStyle]}>
+                                {item.inventoryMessage} ({item.slug})
+                            </div>
+                            <Button type="button" onClick={() => onUseSelf(item.slug)}>Use Self</Button>
+                            <Button type="button" onClick={() => onUseOther(item.slug)}>Use Other</Button>
                         </div>
-                        <Button type="button" onClick={() => onUseSelf(item.slug)}>Use Self</Button>
-                        <Button type="button" onClick={() => onUseOther(item.slug)}>Use Other</Button>
-                    </div>
-                </li>
-            )
-        )}
-    </List>
-);
+                    </li>
+                )
+            )}
+        </List>
+    );
+};
 
 export default Inventory;
