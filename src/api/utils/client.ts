@@ -25,7 +25,10 @@ const getClient = () => {
         baseURL: 'https://nerdzork.nerderylabs.com/api/',
     });
 
-    axiosRetry(client, { retries: 10, retryDelay: () => LIMIT_DELAY, retryCondition: response => response.code === '429' });
+    axiosRetry(
+        client,
+        { retries: 10, retryDelay: () => LIMIT_DELAY, retryCondition: response => response.code === '429' }
+    );
 
     client.interceptors.request.use(async (config) => {
         concurrentRequests++;
