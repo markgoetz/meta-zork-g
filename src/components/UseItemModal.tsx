@@ -7,6 +7,8 @@ import Button from './Button';
 import Select from './Select';
 import HList from './HList';
 import VList from './VList';
+import uniqueSlugs from '../lib/uniqueSlugs';
+import sortUsedInventory from '../lib/sortUsedInventory';
 
 type Props = {
     slugToUse?: string;
@@ -25,7 +27,6 @@ const UseItemModal: React.FunctionComponent<Props> = (props) => {
     );
 
     const onSubmit = (e: React.MouseEvent) => {
-        console.log('submitstart');
         e.preventDefault();
 
         if (otherSlug === '') {
@@ -33,12 +34,14 @@ const UseItemModal: React.FunctionComponent<Props> = (props) => {
         }
 
         onSelectItem(otherSlug);
-        console.log('submitend');
     };
+
+    const fixedInventory = uniqueSlugs(inventory);
+    const sortedInventory = fixedInventory.sort(sortUsedInventory);
 
     const options = [
         { value: '', label: '-select an item-' },
-        ...inventory.map(item => ({ value: item.slug, label: item.inventoryMessage })),
+        ...sortedInventory.map(item => ({ value: item.slug, label: item.inventoryMessage })),
         ...doodads.map(doodad => ({ value: doodad.slug, label: doodad.lookMessage })),
     ];
 

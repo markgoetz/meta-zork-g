@@ -4,6 +4,8 @@ import InventoryItem from '../definitions/InventoryItem';
 import Button from './Button';
 import { SIZES } from '../styling/variables';
 import List from './List';
+import uniqueSlugs from '../lib/uniqueSlugs';
+import sortUsedInventory from '../lib/sortUsedInventory';
 
 type Props = {
     inventory: InventoryItem[],
@@ -31,17 +33,8 @@ const usedItemStyle = css({
 });
 
 const Inventory: React.FunctionComponent<Props> = ({ inventory, onUseSelf, onUseOther }) => {
-    const sortedInventory = inventory.sort(
-        (itemA, itemB) => {
-            if (itemA.neverUsed && !itemB.neverUsed) {
-                return -1;
-            }
-            if (!itemA.neverUsed && itemB.neverUsed) {
-                return 1;
-            }
-            return 0;
-        }
-    );
+    const fixedInventory = uniqueSlugs(inventory);
+    const sortedInventory = fixedInventory.sort(sortUsedInventory);
     
     return (
         <List>
