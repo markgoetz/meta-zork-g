@@ -5,7 +5,6 @@ import useLoadFromApi from '../hooks/useLoadFromApi';
 import roomApi from '../api/room';
 import characterApi from '../api/character';
 import doodadApi from '../api/doodad';
-import sleep from '../lib/sleep';
 
 type Props = {
     children: (
@@ -86,7 +85,6 @@ const GameState: React.FunctionComponent<Props> = (props) => {
 
                 for (let i = 0; i < room.exits.length; i++) {
                     const exit = room.exits[i];
-                    await sleep(2000);
                     const description = await roomApi.lookDirection(exit);
                     tempDescriptions[exit] = description;
                 }
