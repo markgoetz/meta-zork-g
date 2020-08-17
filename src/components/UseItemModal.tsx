@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
+import React, { useEffect } from 'react';
 import InventoryItem from '../definitions/InventoryItem';
 import Doodad from '../definitions/Doodad';
 import Modal from './Modal';
@@ -20,8 +19,13 @@ type Props = {
 const UseItemModal: React.FunctionComponent<Props> = (props) => {
     const { onSelectItem, inventory, doodads, slugToUse, onClose } = props;
     const [otherSlug, setOtherSlug] = useState<string>('');
+    useEffect(
+        () => { setOtherSlug('') },
+        [slugToUse],
+    );
 
-    const onSubmit = (e: React.FormEvent) => {
+    const onSubmit = (e: React.MouseEvent) => {
+        console.log('submitstart');
         e.preventDefault();
 
         if (otherSlug === '') {
@@ -29,6 +33,7 @@ const UseItemModal: React.FunctionComponent<Props> = (props) => {
         }
 
         onSelectItem(otherSlug);
+        console.log('submitend');
     };
 
     const options = [
@@ -39,18 +44,16 @@ const UseItemModal: React.FunctionComponent<Props> = (props) => {
 
     return (
         <Modal title="Use Item" isOpen={slugToUse != null} onClose={onClose}>
-            <form onSubmit={onSubmit}>
-                <VList>
-                    <label>
-                        <div>Select an item to use {slugToUse} on.</div>
-                        <Select onSelectChange={setOtherSlug} value={otherSlug} options={options} />
-                    </label>
-                    <HList>
-                        <Button type="button" theme="link" onClick={onClose}>Cancel</Button>
-                        <Button type="submit">Use it</Button>
-                    </HList>
-                </VList>
-            </form>
+            <VList>
+                <label>
+                    <div>Select an item to use {slugToUse} on.</div>
+                    <Select onSelectChange={setOtherSlug} value={otherSlug} options={options} />
+                </label>
+                <HList>
+                    <Button type="button" theme="link" onClick={onClose}>Cancel</Button>
+                    <Button onClick={onSubmit}>Use it</Button>
+                </HList>
+            </VList>
         </Modal>
     );
 };
