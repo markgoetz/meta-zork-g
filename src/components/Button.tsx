@@ -24,6 +24,7 @@ const secondaryStyle = css({
 const linkStyle = css({
     border: 'none',
     boxShadow: 'none',
+    textAlign: 'left',
     '&:hover, &:focus': {
         backgroundColor: COLORS.PRIMARY_TRANSLUCENT,
         color: COLORS.PRIMARY,

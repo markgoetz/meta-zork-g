@@ -132,6 +132,7 @@ const Screen: React.FunctionComponent<{}> = () => {
                                 <Box title="inventory">
                                     <Inventory
                                         inventory={inventory ?? []}
+                                        onInspect={actions.inspect}
                                         onUseSelf={actions.useOnSelf}
                                         onUseOther={setSlugToUse}
                                     />

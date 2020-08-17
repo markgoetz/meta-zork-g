@@ -11,15 +11,10 @@ import VList from './VList';
 
 type Props = {
     inventory: InventoryItem[],
+    onInspect: (slug: string) => void,
     onUseSelf: (slug: string) => void,
     onUseOther: (slug: string) => void,
 };
-
-const bulletStyle = css({
-    '::before': {
-        content: '"* "',
-    }
-});
 
 const itemStyle = css({
     display: 'grid',
@@ -34,7 +29,7 @@ const usedItemStyle = css({
     textDecoration: 'line-through',
 });
 
-const Inventory: React.FunctionComponent<Props> = ({ inventory, onUseSelf, onUseOther }) => {
+const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUseSelf, onUseOther }) => {
     const [showUsedItems, setShowUsedItems] = useState(false);
 
     const sourceInventory = showUsedItems ? inventory : inventory.filter(item => item.neverUsed);
@@ -48,8 +43,10 @@ const Inventory: React.FunctionComponent<Props> = ({ inventory, onUseSelf, onUse
                     item => (
                         <li key={item.slug}>
                             <div css={itemStyle}>
-                                <div css={item.neverUsed ? bulletStyle : [bulletStyle, usedItemStyle]}>
-                                    {item.inventoryMessage} ({item.slug})
+                                <div css={item.neverUsed ? [] : [usedItemStyle]}>
+                                    <Button theme="link" onClick={() => onInspect(item.slug)}>
+                                        {item.inventoryMessage} ({item.slug})
+                                    </Button>
                                 </div>
                                 <Button type="button" onClick={() => onUseSelf(item.slug)}>Use Self</Button>
                                 <Button type="button" onClick={() => onUseOther(item.slug)}>Use Other</Button>

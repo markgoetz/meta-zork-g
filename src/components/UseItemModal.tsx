@@ -41,7 +41,7 @@ const UseItemModal: React.FunctionComponent<Props> = (props) => {
 
     const options = [
         { value: '', label: '-select an item-' },
-        ...sortedInventory.map(item => ({ value: item.slug, label: item.inventoryMessage })),
+        ...sortedInventory.map(item => ({ value: item.slug, label: `${item.inventoryMessage} (${item.slug})}` })),
         ...doodads.map(doodad => ({ value: doodad.slug, label: doodad.lookMessage })),
     ];
 
