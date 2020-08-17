@@ -24,12 +24,14 @@ const inventory = async () => {
 
 const origin = async () => {
     const client = getClient();
-    await client.get(CHARACTER.ORIGIN);
+    const response = await client.get(CHARACTER.ORIGIN) as Response<string>;
+    return response.data.response;
 };
 
 const rename = async (name: string) => {
     const client = getClient();
-    await client.post(CHARACTER.RENAME, { name });
+    const response = await client.post(CHARACTER.RENAME, { name }) as Response<string>;
+    return response.data.response;
 };
 
 const leaderboard = async () => {

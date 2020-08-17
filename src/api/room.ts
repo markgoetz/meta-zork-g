@@ -23,7 +23,8 @@ const move = async (direction: string) => {
 
 const note = async(note: string) => {
     const client = getClient();
-    await client.post(ROOM.NOTE, { note });
+    const response = await client.post(ROOM.NOTE, { note }) as Response<string>;
+    return response.data.response;
 };
 
 export default {
