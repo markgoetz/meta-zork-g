@@ -42,7 +42,34 @@ const GameState: React.FunctionComponent<Props> = (props) => {
     const get = async(slug: string) => {
         const responseFromGet = await doodadApi.get(slug);
         setResponse(responseFromGet);
+        getRoom();
         getInventory();
+    };
+
+    const move = async(direction: string) => {
+        const responseFromMove = await roomApi.move(direction);
+        setResponse(responseFromMove);
+        getRoom();
+    };
+
+    const useOnSelf = async(slug: string) => {
+        const responseFromUse = await doodadApi.useOnSelf(slug);
+        setResponse(responseFromUse);
+        getInventory();
+    };
+
+    const useOnOther = async(slug: string, otherSlug: string) => {
+        const responseFromUse = await doodadApi.useOnOther(slug, otherSlug);
+        setResponse(responseFromUse);
+        getInventory();
+        getRoom();
+    };
+
+    const deathwarp = async() => {
+        const responseFromDeathwarp = await characterApi.origin();
+        setResponse(responseFromDeathwarp);
+        getInventory();
+        getRoom();
     };
 
     const updateExits = useCallback(
@@ -64,12 +91,12 @@ const GameState: React.FunctionComponent<Props> = (props) => {
     );
 
     const actions = {
-        onMove: console.log,
+        onMove: move,
         onInspect: inspect,
         onGet: get,
-        onUseSelf: console.log,
-        onUseOther: console.log,
-        onDeathWarp: console.log,
+        onUseSelf: useOnSelf,
+        onUseOther: useOnOther,
+        onDeathWarp: deathwarp,
         onClearResponse: () => { setResponse(undefined); },
     };
 

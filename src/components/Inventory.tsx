@@ -26,13 +26,19 @@ const itemStyle = css({
     alignItems: 'center',
 });
 
+const usedItemStyle = css({
+    textDecoration: 'line-through',
+});
+
 const Inventory: React.FunctionComponent<Props> = ({ inventory, onUseSelf, onUseOther }) => (
     <List>
         {inventory.map(
             item => (
                 <li key={item.slug}>
                     <div css={itemStyle}>
-                        <div css={bulletStyle}>{item.inventoryMessage} ({item.slug})</div>
+                        <div css={item.neverUsed ? bulletStyle : [bulletStyle, usedItemStyle]}>
+                            {item.inventoryMessage} ({item.slug})
+                        </div>
                         <Button type="button" onClick={() => onUseSelf(item.slug)}>Use Self</Button>
                         <Button type="button" onClick={() => onUseOther(item.slug)}>Use Other</Button>
                     </div>
