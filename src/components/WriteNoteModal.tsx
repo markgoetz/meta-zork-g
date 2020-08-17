@@ -36,7 +36,7 @@ const WriteNoteModal: React.FunctionComponent<Props> = (props) => {
                 <label>
                     <div>Please enter the text for your lovely note.</div>
                 </label>
-                <Textarea value={contents} onChange={onTextChange} />
+                <Textarea cols={50} rows={5} value={contents} onChange={onTextChange} />
                 <HList>
                     <Button type="button" theme="link" onClick={onClose}>Cancel</Button>
                     <Button type="button" onClick={onClick}>Write it!</Button>

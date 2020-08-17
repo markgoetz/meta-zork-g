@@ -29,7 +29,7 @@ const mainStyle = css({
     display: 'grid',
     gridGap: SIZES.STANDARD,
     gridArea: 'main',
-    gridTemplateRows: '1fr 1fr 1fr',
+    gridTemplateRows: 'auto auto auto',
     gridTemplateColumns: '1fr 1fr',
     gridTemplateAreas: `
         "description description"

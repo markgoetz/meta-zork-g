@@ -3,7 +3,7 @@ import axiosRetry from 'axios-retry';
 import { getApiKey } from './api-key';
 import sleep from '../../lib/sleep';
 
-const LIMIT_DELAY = 1000;
+const LIMIT_DELAY = 700;
 let lastRequestTime = Date.now();
 let concurrentRequests = 0;
 
