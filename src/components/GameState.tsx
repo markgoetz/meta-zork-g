@@ -5,6 +5,7 @@ import useLoadFromApi from '../hooks/useLoadFromApi';
 import roomApi from '../api/room';
 import characterApi from '../api/character';
 import doodadApi from '../api/doodad';
+import sleep from '../lib/sleep';
 
 type Props = {
     children: (
@@ -19,6 +20,7 @@ type Props = {
             useOnOther: (slug: string, otherSlug: string) => void,
             deathwarp: () => void,
             writeNote: (contents: string) => void,
+            mashInventory: (slug1: string, slug2: string) => void,
             clearResponse: () => void,
         },
         response: string | undefined,
@@ -78,6 +80,34 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         setResponse(responseFromNoteWrite);
     };
 
+    const mashInventory = async(slug1: string, slug2: string) => {
+        if (inventory == null) {
+            return;
+        }
+
+        const index1 = inventory.findIndex(item => item.slug === slug1);
+        const index2 = inventory.findIndex(item => item.slug === slug2);
+
+        if (index1 == null || index2 == null) {
+            throw new Error('Cannot find index.');
+        }
+
+        for (let i = index1; i <= index2; i++) {
+            for (let j = index1; j <= index2; j++) {
+                if (i === j) { continue; }
+
+                const slugA = inventory[i].slug;
+                const slugB = inventory[j].slug;
+                await doodadApi.useOnOther(slugA, slugB);
+
+                await sleep(700);
+            }
+        }
+
+        setResponse('Mashing completed.');
+        getInventory();
+    };
+
     const updateExits = useCallback(
         async () => {
             if (room != null) {
@@ -103,6 +133,7 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         useOnOther,
         deathwarp,
         writeNote,
+        mashInventory,
         clearResponse: () => { setResponse(undefined); },
     };
 

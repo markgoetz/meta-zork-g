@@ -8,12 +8,16 @@ import uniqueSlugs from '../lib/uniqueSlugs';
 import sortUsedInventory from '../lib/sortUsedInventory';
 import { useState } from 'react';
 import VList from './VList';
+import Modal from './Modal';
+import Select from './Select';
+import HList from './HList';
 
 type Props = {
     inventory: InventoryItem[],
     onInspect: (slug: string) => void,
     onUseSelf: (slug: string) => void,
     onUseOther: (slug: string) => void,
+    onMashInventory: (slug1: string, slug2: string) => void,
 };
 
 const itemStyle = css({
@@ -29,15 +33,30 @@ const usedItemStyle = css({
     textDecoration: 'line-through',
 });
 
-const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUseSelf, onUseOther }) => {
+const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUseSelf, onUseOther, onMashInventory }) => {
     const [showUsedItems, setShowUsedItems] = useState(false);
+    const [showMasher, setShowMasher] = useState(false);
+    const [masher1Slug, setMasher1Slug] = useState('');
+    const [masher2Slug, setMasher2Slug] = useState('');
 
     const sourceInventory = showUsedItems ? inventory : inventory.filter(item => item.neverUsed);
     const fixedInventory = uniqueSlugs(sourceInventory);
     const sortedInventory = fixedInventory.sort(sortUsedInventory);
-    
+
+    const masherOptions = sortedInventory.map(item => ({
+        label: item.inventoryMessage, value: item.slug,
+    }));
+
+    const mashSubmit = () => {
+        onMashInventory(masher1Slug, masher2Slug);
+        setShowMasher(false);
+    };
+
     return (
         <VList>
+            <Button onClick={() => { setShowMasher(true); }}>
+                Inventory Masher
+            </Button>
             <List>
                 {sortedInventory.map(
                     item => (
@@ -58,6 +77,18 @@ const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUse
             <Button onClick={() => setShowUsedItems(!showUsedItems)}>
                 Toggle Used Items
             </Button>
+            <Modal title="Inventory Masher" isOpen={showMasher} onClose={() => { setShowMasher(false); }}>
+                <VList>
+                    <label>Start from:</label>
+                    <Select options={masherOptions} onSelectChange={setMasher1Slug} />
+                    <label>End at:</label>
+                    <Select options={masherOptions} onSelectChange={setMasher2Slug} />
+                    <HList>
+                        <Button theme="link" onClick={() => { setShowMasher(false); }}>Cancel</Button>
+                        <Button onClick={mashSubmit}>Mash</Button>
+                    </HList>
+                </VList>
+            </Modal>
         </VList>
     );
 };

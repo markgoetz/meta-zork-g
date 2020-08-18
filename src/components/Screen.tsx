@@ -135,6 +135,7 @@ const Screen: React.FunctionComponent<{}> = () => {
                                         onInspect={actions.inspect}
                                         onUseSelf={actions.useOnSelf}
                                         onUseOther={setSlugToUse}
+                                        onMashInventory={actions.mashInventory}
                                     />
                                 </Box>
                             </div>
