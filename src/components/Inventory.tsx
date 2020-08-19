@@ -42,8 +42,9 @@ const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUse
     const sourceInventory = showUsedItems ? inventory : inventory.filter(item => item.neverUsed);
     const fixedInventory = uniqueSlugs(sourceInventory);
     const sortedInventory = fixedInventory.sort(sortUsedInventory);
+    const mostRecentInventory = sortedInventory.reverse();
 
-    const masherOptions = sortedInventory.map(item => ({
+    const masherOptions = mostRecentInventory.map(item => ({
         label: item.inventoryMessage, value: item.slug,
     }));
 
@@ -58,7 +59,7 @@ const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUse
                 Inventory Masher
             </Button>
             <List>
-                {sortedInventory.map(
+                {mostRecentInventory.map(
                     item => (
                         <li key={item.slug}>
                             <div css={itemStyle}>

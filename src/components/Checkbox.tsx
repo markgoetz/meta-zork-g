@@ -13,10 +13,9 @@ type Props = React.HTMLProps<HTMLInputElement> & {
 
 const labelStyle = css({
     cursor: 'pointer',
-    'div': {
-        transition: 'background-color .25s',
-    },
-    '&:hover div': {
+    padding: SIZES.HALF,
+    transition: 'background-color .25s',
+    '&:hover': {
         backgroundColor: COLORS.PRIMARY_TRANSLUCENT,
     }
 })
@@ -29,6 +28,7 @@ const inputStyle = css({
     position: 'absolute',
     whiteSpace: 'nowrap',
     width: 1,
+    marginLeft: 0,
 });
 
 const iconStyle = css({
@@ -50,8 +50,8 @@ const CheckBox: React.FunctionComponent<Props> = ({ id, label, selected, onToggl
     return (
         <label htmlFor={id} css={labelStyle}>
             <HList>
-                <input css={inputStyle} id={id} type="checkbox" checked={selected} onChange={onChange} />
                 <div css={selected ? [iconStyle, filledIconStyle] : iconStyle} />
+                <input css={inputStyle} id={id} type="checkbox" checked={selected} onChange={onChange} />
                 <span>{label}</span>
             </HList>
         </label>

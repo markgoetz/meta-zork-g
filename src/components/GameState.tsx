@@ -119,6 +119,11 @@ const GameState: React.FunctionComponent<Props> = (props) => {
                     const tempDescriptions: DescriptionMap = {};
 
                     for (let i = 0; i < room.exits.length; i++) {
+                        if (!descriptionFlag) {
+                            setExitDescriptions({});
+                            break;
+                        }
+
                         const exit = room.exits[i];
                         const description = await roomApi.lookDirection(exit);
                         tempDescriptions[exit] = description;

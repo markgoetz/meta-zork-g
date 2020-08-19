@@ -32,15 +32,9 @@ const Modal: React.FunctionComponent<Props> = ({ isOpen, onClose, title, childre
         return null;
     }
 
-    const onBodyClick = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        e.preventDefault();
-        return;
-    };
-
     return (
-        <div css={backdropStyle} onClick={onClose}>
-            <div css={containerStyle} onClick={onBodyClick}>
+        <div css={backdropStyle}>
+            <div css={containerStyle}>
                 <Box title={title}>
                     {children}
                 </Box>
