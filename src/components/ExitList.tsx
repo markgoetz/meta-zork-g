@@ -3,11 +3,15 @@ import { jsx, css } from '@emotion/core';
 import { SIZES } from '../styling/variables';
 import Button from './Button';
 import List from './List';
+import VList from './VList';
+import Checkbox from './Checkbox';
 
 type Props = {
     exits: string[],
     exitDescriptions: { [key: string] : string },
+    descriptionFlag: boolean,
     onMove: (direction: string) => void,
+    setDescriptionFlag: (flag: boolean) => void,
 };
 
 const directionStyle = css({
@@ -34,20 +38,27 @@ const itemStyle = css({
     alignItems: 'center',
 });
 
-const ExitList: React.FunctionComponent<Props> = ({ exits, exitDescriptions, onMove }) => (
-    <List>
-        {exits.map(exit =>
-            <li key={exit}>
-                <div css={itemStyle}>
-                    <div css={directionStyle}>{exit}</div>
-                    <div css={buttonStyle}>
-                        <Button type="button" onClick={() => onMove(exit)}>Go</Button>
-                    </div>
-                    <div css={descriptionStyle}>{exitDescriptions[exit]}</div>
-                </div>
-            </li>
-        )}
-    </List>
-);
+const ExitList: React.FunctionComponent<Props> = (props) => {
+    const { exits, exitDescriptions, onMove, setDescriptionFlag, descriptionFlag } = props;
+
+    return (
+        <VList>
+            <Checkbox selected={descriptionFlag} onToggle={setDescriptionFlag} label="Show descriptions" id="show-descriptions" />
+            <List>
+                {exits.map(exit =>
+                    <li key={exit}>
+                        <div css={itemStyle}>
+                            <div css={directionStyle}>{exit}</div>
+                            <div css={buttonStyle}>
+                                <Button type="button" onClick={() => onMove(exit)}>Go</Button>
+                            </div>
+                            <div css={descriptionStyle}>{exitDescriptions[exit]}</div>
+                        </div>
+                    </li>
+                )}
+            </List>
+        </VList>
+    )
+};
 
 export default ExitList;

@@ -22,8 +22,10 @@ type Props = {
             writeNote: (contents: string) => void,
             mashInventory: (slug1: string, slug2: string) => void,
             clearResponse: () => void,
+            setDescriptionFlag: (flag: boolean) => void,
         },
         response: string | undefined,
+        descriptionFlag: boolean,
     ) => JSX.Element,
 };
 
@@ -32,6 +34,7 @@ type DescriptionMap = {[description: string]: string};
 const GameState: React.FunctionComponent<Props> = (props) => {
     const [response, setResponse] = useState<string>();
     const [exitDescriptions, setExitDescriptions] = useState<DescriptionMap>({});
+    const [descriptionFlag, setDescriptionFlag] = useState(true);
 
     const [getRoom, room] = useLoadFromApi(roomApi.lookRoom);
     const [getInventory, inventory] = useLoadFromApi(characterApi.inventory);
@@ -112,17 +115,19 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         async () => {
             if (room != null) {
                 setExitDescriptions({});
-                const tempDescriptions: DescriptionMap = {};
+                if (descriptionFlag) {
+                    const tempDescriptions: DescriptionMap = {};
 
-                for (let i = 0; i < room.exits.length; i++) {
-                    const exit = room.exits[i];
-                    const description = await roomApi.lookDirection(exit);
-                    tempDescriptions[exit] = description;
-                    setExitDescriptions({...tempDescriptions});
+                    for (let i = 0; i < room.exits.length; i++) {
+                        const exit = room.exits[i];
+                        const description = await roomApi.lookDirection(exit);
+                        tempDescriptions[exit] = description;
+                        setExitDescriptions({...tempDescriptions});
+                    }
                 }
             }
         },
-        [room],
+        [room, descriptionFlag],
     );
 
     const actions = {
@@ -135,6 +140,7 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         writeNote,
         mashInventory,
         clearResponse: () => { setResponse(undefined); },
+        setDescriptionFlag,
     };
 
     useEffect(
@@ -156,7 +162,7 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         [updateExits]
     );
 
-    return props.children(room, inventory, exitDescriptions, actions, response);
+    return props.children(room, inventory, exitDescriptions, actions, response, descriptionFlag);
 };
 
 export default GameState;

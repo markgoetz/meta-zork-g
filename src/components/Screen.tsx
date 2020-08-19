@@ -42,12 +42,9 @@ const sidebarStyle = css({
     display: 'grid',
     gridGap: SIZES.STANDARD,
     gridArea: 'sidebar',
-    gridTemplateRows: '2fr 1fr 1fr auto',
+    gridTemplateRows: '1fr auto',
     gridTemplateAreas: `
         "inventory"
-        "inventory"
-        "leaderboard"
-        "activity"
         "deathwarp"
     `
 });
@@ -58,8 +55,6 @@ const notesStyle = css({ gridArea: 'notes' });
 const corpsesStyle = css({ gridArea: 'corpses' });
 const exitsStyle = css({ gridArea: 'exits' });
 const inventoryStyle = css({ gridArea: 'inventory' });
-const leaderboardStyle = css({ gridArea: 'leaderboard' });
-const activityStyle = css({ gridArea: 'activity' });
 const deathwarpStyle = css({ gridArea: 'deathwarp' });
 
 const Screen: React.FunctionComponent<{}> = () => {
@@ -71,7 +66,7 @@ const Screen: React.FunctionComponent<{}> = () => {
 
     return (
         <GameState>
-            {(room, inventory, exitDescriptions, actions, response) => {
+            {(room, inventory, exitDescriptions, actions, response, descriptionFlag) => {
                 const onSelectItem = (otherSlug: string) => {
                     if (slugToUse == null) {
                         return;
@@ -112,6 +107,8 @@ const Screen: React.FunctionComponent<{}> = () => {
                                         exits={room?.exits ?? []}
                                         exitDescriptions={exitDescriptions}
                                         onMove={actions.move}
+                                        setDescriptionFlag={actions.setDescriptionFlag}
+                                        descriptionFlag={descriptionFlag}
                                     />
                                 </Box>
                             </div>
@@ -138,14 +135,6 @@ const Screen: React.FunctionComponent<{}> = () => {
                                         onMashInventory={actions.mashInventory}
                                     />
                                 </Box>
-                            </div>
-                            <div css={leaderboardStyle}>
-                                <Box title="Leaderboard">Leaderboard</Box>
-                                {/* TODO Leaderboard modal */}
-                            </div>
-                            <div css={activityStyle}>
-                                <Box title="Activity">Activity</Box>
-                                {/* TODO Activity modal */}
                             </div>
                             <div css={deathwarpStyle}>
                                 <Box title="Deathwarp">
