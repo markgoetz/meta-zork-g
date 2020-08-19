@@ -30,7 +30,7 @@ const mainStyle = css({
     display: 'grid',
     gridGap: SIZES.STANDARD,
     gridArea: 'main',
-    gridTemplateRows: 'auto auto auto',
+    gridTemplateRows: 'minmax(0, auto) minmax(0, auto) minmax(0, auto)',
     gridTemplateColumns: '1fr 1fr',
     gridTemplateAreas: `
         "description description"
@@ -54,12 +54,19 @@ const sidebarStyle = css({
     maxHeight: '100%',
 });
 
+const OVERFLOW_MIXIN = {
+    overflowY: 'auto',
+    minHeight: 0,
+    minWidth: 0,
+    maxHeight: '100%',
+} as { overflowY: 'auto', minHeight: 0, minWidth: 0, maxHeight: string };
+
 const descriptionStyle = css({ gridArea: 'description' });
-const doodadsStyle = css({ gridArea: 'doodads' });
-const notesStyle = css({ gridArea: 'notes' });
-const corpsesStyle = css({ gridArea: 'corpses' });
-const exitsStyle = css({ gridArea: 'exits' });
-const inventoryStyle = css({ gridArea: 'inventory' });
+const doodadsStyle = css({ ...OVERFLOW_MIXIN, gridArea: 'doodads' });
+const notesStyle = css({ ...OVERFLOW_MIXIN, gridArea: 'notes' });
+const corpsesStyle = css({ ...OVERFLOW_MIXIN, gridArea: 'corpses' });
+const exitsStyle = css({ ...OVERFLOW_MIXIN, gridArea: 'exits' });
+const inventoryStyle = css({ ...OVERFLOW_MIXIN, gridArea: 'inventory' });
 const deathwarpStyle = css({ gridArea: 'deathwarp' });
 
 const Screen: React.FunctionComponent<{}> = () => {

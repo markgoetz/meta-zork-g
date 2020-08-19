@@ -72,7 +72,7 @@ const GameState: React.FunctionComponent<Props> = (props) => {
     };
 
     const deathwarp = async() => {
-        const responseFromDeathwarp = await characterApi.origin();
+        const responseFromDeathwarp = await characterApi.recall();
         setResponse(responseFromDeathwarp);
         getInventory();
         getRoom();

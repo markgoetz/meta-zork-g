@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { INPUT } from '../styling/common';
+import { BORDER } from '../styling/common';
 import { SIZES, COLORS } from '../styling/variables';
 import HList from './HList';
 
@@ -32,7 +32,7 @@ const inputStyle = css({
 });
 
 const iconStyle = css({
-    ...INPUT,
+    ...BORDER,
     height: SIZES.STANDARD,
     width: SIZES.STANDARD,
     padding: 0,

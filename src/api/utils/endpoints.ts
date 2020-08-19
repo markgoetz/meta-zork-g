@@ -1,7 +1,7 @@
 export const CHARACTER = {
     ME: `/character/me`,
     INVENTORY: `/character/inventory`,
-    ORIGIN: `/character/origin`,
+    RECALL: `/character/recall`,
     RENAME: `/character/rename`,
     LEADERBOARD: `/character/leaderboard`,
     LOSERBOARD: `/character/loserboard`,
