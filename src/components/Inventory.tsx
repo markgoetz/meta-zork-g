@@ -45,7 +45,8 @@ const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUse
     const mostRecentInventory = sortedInventory.reverse();
 
     const masherOptions = mostRecentInventory.map(item => ({
-        label: item.inventoryMessage, value: item.slug,
+        label: item.inventoryMessage,
+        value: item.slug,
     }));
 
     const mashSubmit = () => {
@@ -55,29 +56,33 @@ const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUse
 
     return (
         <VList>
-            <Button onClick={() => { setShowMasher(true); }}>
-                Inventory Masher
-            </Button>
-            <List>
-                {mostRecentInventory.map(
-                    item => (
-                        <li key={item.slug}>
-                            <div css={itemStyle}>
-                                <div css={item.neverUsed ? [] : [usedItemStyle]}>
-                                    <Button theme="link" onClick={() => onInspect(item.slug)}>
-                                        {item.inventoryMessage} ({item.slug})
-                                    </Button>
+            <HList>
+                <Button onClick={() => { setShowMasher(true); }}>
+                    Inventory Masher
+                </Button>
+                <Button onClick={() => setShowUsedItems(!showUsedItems)}>
+                    Toggle Used Items
+                </Button>
+            </HList>
+            <div>
+                <List>
+                    {mostRecentInventory.map(
+                        item => (
+                            <li key={item.slug}>
+                                <div css={itemStyle}>
+                                    <div css={item.neverUsed ? [] : [usedItemStyle]}>
+                                        <Button theme="link" onClick={() => onInspect(item.slug)}>
+                                            {item.inventoryMessage} ({item.slug})
+                                        </Button>
+                                    </div>
+                                    <Button type="button" onClick={() => onUseSelf(item.slug)}>Use Self</Button>
+                                    <Button type="button" onClick={() => onUseOther(item.slug)}>Use Other</Button>
                                 </div>
-                                <Button type="button" onClick={() => onUseSelf(item.slug)}>Use Self</Button>
-                                <Button type="button" onClick={() => onUseOther(item.slug)}>Use Other</Button>
-                            </div>
-                        </li>
-                    )
-                )}
-            </List>
-            <Button onClick={() => setShowUsedItems(!showUsedItems)}>
-                Toggle Used Items
-            </Button>
+                            </li>
+                        )
+                    )}
+                </List>
+            </div>
             <Modal title="Inventory Masher" isOpen={showMasher} onClose={() => { setShowMasher(false); }}>
                 <VList>
                     <label>Start from:</label>

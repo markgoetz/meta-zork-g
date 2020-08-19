@@ -7,6 +7,7 @@ const boxStyle = css({
     ...BORDER,
     padding: SIZES.STANDARD,
     height: '100%',
+    maxHeight: '100%',
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: COLORS.PRIMARY_TRANSLUCENT,
@@ -21,6 +22,7 @@ const titleStyle = css({
 
 const contentsStyle = css({
     flexGrow: 1,
+    flexShrink: 1,
     overflowY: 'auto',
 });
 

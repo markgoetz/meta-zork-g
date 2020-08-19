@@ -17,11 +17,12 @@ import VList from './VList';
 const screenStyle = css({
     display: 'grid',
     gridGap: SIZES.STANDARD,
-    gridTemplateRows: '100%',
+    gridTemplateRows: `calc(100vh - ${SIZES.DOUBLE})`,
     gridTemplateColumns: '2fr 1fr',
     gridTemplateAreas: '"main sidebar"',
     width: '100%',
     minHeight: '100vh',
+    maxHeight: '100vh',
     padding: SIZES.STANDARD,
 });
 
@@ -36,17 +37,21 @@ const mainStyle = css({
         "doodads     exits"
         "notes       corpses"
     `,
+    height: '100%',
+    maxHeight: '100%',
 });
 
 const sidebarStyle = css({
     display: 'grid',
     gridGap: SIZES.STANDARD,
     gridArea: 'sidebar',
-    gridTemplateRows: '1fr auto',
+    gridTemplateRows: `calc(100vh - ${116 + SIZES.STANDARD * 3}px) 116px`,
     gridTemplateAreas: `
         "inventory"
         "deathwarp"
-    `
+    `,
+    height: '100%',
+    maxHeight: '100%',
 });
 
 const descriptionStyle = css({ gridArea: 'description' });
@@ -126,7 +131,7 @@ const Screen: React.FunctionComponent<{}> = () => {
                         <aside css={sidebarStyle}>
                             {/* TODO Your name and score? */}
                             <div css={inventoryStyle}>
-                                <Box title="inventory">
+                                <Box title="Inventory">
                                     <Inventory
                                         inventory={inventory ?? []}
                                         onInspect={actions.inspect}
