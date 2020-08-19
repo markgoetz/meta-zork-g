@@ -15,7 +15,7 @@ const labelStyle = css({
     cursor: 'pointer',
     padding: SIZES.HALF,
     transition: 'background-color .25s',
-    '&:hover': {
+    '&:hover,&:focus': {
         backgroundColor: COLORS.PRIMARY_TRANSLUCENT,
     }
 })
