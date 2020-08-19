@@ -95,8 +95,10 @@ const GameState: React.FunctionComponent<Props> = (props) => {
             throw new Error('Cannot find index.');
         }
 
-        for (let i = index1; i <= index2; i++) {
-            for (let j = index1; j <= index2; j++) {
+        const [startIndex, endIndex] = (index1 < index2) ? [index1, index2] : [index2, index1];
+
+        for (let i = startIndex; i <= endIndex; i++) {
+            for (let j = startIndex; j <= endIndex; j++) {
                 if (i === j) { continue; }
 
                 const slugA = inventory[i].slug;
