@@ -1,11 +1,12 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { BORDER } from '../styling/common';
-import { SIZES, COLORS } from '../styling/variables';
+import { BORDER } from '../../styling/common';
+import { SIZES, COLORS } from '../../styling/variables';
 
 const boxStyle = css({
     ...BORDER,
     padding: SIZES.STANDARD,
+    minHeight: 144,
     height: '100%',
     maxHeight: '100%',
     display: 'flex',
@@ -15,8 +16,9 @@ const boxStyle = css({
 
 const titleStyle = css({
     flexGrow: 0,
+    flexShrink: 0,
     textAlign: 'center',
-    fontSize: '20px',
+    fontSize: SIZES.ONEPOINTFIVE,
     marginBottom: SIZES.STANDARD,
 });
 

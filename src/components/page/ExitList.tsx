@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { SIZES } from '../styling/variables';
-import Button from './Button';
-import List from './List';
-import VList from './VList';
-import Checkbox from './Checkbox';
+import { SIZES } from '../../styling/variables';
+import Button from '../common/Button';
+import List from '../common/List';
+import VList from '../common/VList';
+import Checkbox from '../common/Checkbox';
 
 type Props = {
     exits: string[],

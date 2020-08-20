@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { SHADOWS, COLORS, SIZES } from '../styling/variables';
-import { INPUT } from '../styling/common';
+import { SHADOWS, COLORS, SIZES } from '../../styling/variables';
+import { INPUT } from '../../styling/common';
 
 type Option = {
     label: string,

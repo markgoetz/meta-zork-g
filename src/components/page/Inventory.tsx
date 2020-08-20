@@ -1,15 +1,15 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import InventoryItem from '../definitions/InventoryItem';
-import Button from './Button';
-import { SIZES } from '../styling/variables';
-import List from './List';
-import uniqueSlugs from '../lib/uniqueSlugs';
 import { useState } from 'react';
-import VList from './VList';
-import HList from './HList';
+import InventoryItem from '../../definitions/InventoryItem';
+import { SIZES } from '../../styling/variables';
+import uniqueSlugs from '../../lib/uniqueSlugs';
 import ItemGrinderModal from './ItemMasherModal';
-import CheckBox from './Checkbox';
+import Button from '../common/Button';
+import List from '../common/List';
+import VList from '../common/VList';
+import HList from '../common/HList';
+import CheckBox from '../common/Checkbox';
 
 type Props = {
     inventory: InventoryItem[],

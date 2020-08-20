@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { BORDER } from '../styling/common';
-import { SIZES, COLORS } from '../styling/variables';
+import { BORDER } from '../../styling/common';
+import { SIZES, COLORS } from '../../styling/variables';
 import HList from './HList';
 
 type Props = React.HTMLProps<HTMLInputElement> & {

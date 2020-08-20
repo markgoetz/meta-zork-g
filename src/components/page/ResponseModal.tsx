@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import Modal from './Modal';
-import VList from './VList';
-import Button from './Button';
+import Modal from '../common/Modal';
+import VList from '../common/VList';
+import Button from '../common/Button';
 
 type Props = {
     response: string | undefined,

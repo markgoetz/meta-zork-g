@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { INPUT } from '../styling/common';
+import { INPUT } from '../../styling/common';
 
 type Props = React.HTMLProps<HTMLInputElement>;
 

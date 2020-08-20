@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react';
-import InventoryItem from '../definitions/InventoryItem';
-import Doodad from '../definitions/Doodad';
-import Modal from './Modal';
-import { useState } from 'react';
-import Button from './Button';
-import Select from './Select';
-import HList from './HList';
-import VList from './VList';
-import uniqueSlugs from '../lib/uniqueSlugs';
-import CheckBox from './Checkbox';
+import React, { useState, useEffect } from 'react';
+import InventoryItem from '../../definitions/InventoryItem';
+import Doodad from '../../definitions/Doodad';
+import uniqueSlugs from '../../lib/uniqueSlugs';
+import Modal from '../common/Modal';
+import Button from '../common/Button';
+import Select from '../common/Select';
+import HList from '../common/HList';
+import VList from '../common/VList';
+import CheckBox from '../common/Checkbox';
 
 type Props = {
     slugToUse?: string;

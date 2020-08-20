@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
-import Doodad from '../definitions/Doodad'
-import Button from './Button';
-import { SIZES } from '../styling/variables';
-import List from './List';
+import Doodad from '../../definitions/Doodad'
+import Button from '../common/Button';
+import { SIZES } from '../../styling/variables';
+import List from '../common/List';
 
 type Props = {
     doodads: Doodad[],

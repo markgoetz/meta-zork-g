@@ -1,18 +1,18 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import Box from './Box';
+import { useState } from 'react';
 
-import { SIZES } from '../styling/variables';
+import { SIZES } from '../../styling/variables';
+import Box from '../common/Box';
+import Button from '../common/Button';
+import VList from '../common/VList';
 import GameState from './GameState';
-import Button from './Button';
 import DoodadList from './DoodadList';
 import ExitList from './ExitList';
 import Inventory from './Inventory';
-import { useState } from 'react';
 import UseItemModal from './UseItemModal';
 import ResponseModal from './ResponseModal';
 import WriteNoteModal from './WriteNoteModal';
-import VList from './VList';
 
 const screenStyle = css({
     display: 'grid',

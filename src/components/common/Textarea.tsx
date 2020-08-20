@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { INPUT } from '../styling/common';
-import { SIZES } from '../styling/variables';
+import { INPUT } from '../../styling/common';
+import { SIZES } from '../../styling/variables';
 
 type Props = React.HTMLProps<HTMLTextAreaElement>;
 

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { SIZES } from '../styling/variables';
+import { SIZES } from '../../styling/variables';
 
 type Props = {};
 
@@ -8,13 +8,12 @@ const listStyle = css({
     alignItems: 'center',
     justifyContent: 'center',
     display: 'flex',
-    flexDirection: 'column',
     '& > * + *': {
-        marginTop: SIZES.STANDARD,
+        marginLeft: SIZES.STANDARD,
     },
 });
 
-const VList: React.FunctionComponent<Props> = ({ children }) => {
+const HList: React.FunctionComponent<Props> = ({ children }) => {
     return (
         <div css={listStyle}>
             { children }
@@ -22,4 +21,4 @@ const VList: React.FunctionComponent<Props> = ({ children }) => {
     );
 };
 
-export default VList;
+export default HList;

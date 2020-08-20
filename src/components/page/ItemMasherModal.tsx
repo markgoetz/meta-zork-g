@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import InventoryItem from '../definitions/InventoryItem';
 import { useState } from 'react';
-import Modal from './Modal';
-import VList from './VList';
-import Select from './Select';
-import HList from './HList';
-import Button from './Button';
+import InventoryItem from '../../definitions/InventoryItem';
+import Modal from '../common/Modal';
+import VList from '../common/VList';
+import Select from '../common/Select';
+import HList from '../common/HList';
+import Button from '../common/Button';
 
 type Props = {
     isOpen: boolean,

@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import { jsx, css } from '@emotion/core'
 import { COLORS } from './styling/variables';
-import Screen from './components/Screen';
-import GetKeyModal from './components/GetKeyModal';
+import Screen from './components/page/Screen';
+import GetKeyModal from './components/page/GetKeyModal';
 
 import { getApiKey, setApiKey } from './api/utils/api-key';
 

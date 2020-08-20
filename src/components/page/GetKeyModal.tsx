@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import { useState } from 'react';
-import Button from './Button';
-import Input from './Input';
-import Box from './Box';
+import Button from '../common/Button';
+import Input from '../common/Input';
+import Box from '../common/Box';
 
 type Props = {
     onKeySubmit: (key: string) => void,

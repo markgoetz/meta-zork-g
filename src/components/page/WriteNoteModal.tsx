@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import HList from './HList';
-import Textarea from './Textarea';
-import Modal from './Modal';
-import VList from './VList';
-import Button from './Button';
+import HList from '../common/HList';
+import Textarea from '../common/Textarea';
+import Modal from '../common/Modal';
+import VList from '../common/VList';
+import Button from '../common/Button';
 
 type Props = {
     isOpen: boolean,

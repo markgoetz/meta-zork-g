@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import Room from '../definitions/Room';
-import InventoryItem from '../definitions/InventoryItem';
-import useLoadFromApi from '../hooks/useLoadFromApi';
-import roomApi from '../api/room';
-import characterApi from '../api/character';
-import doodadApi from '../api/doodad';
-import sleep from '../lib/sleep';
+import Room from '../../definitions/Room';
+import InventoryItem from '../../definitions/InventoryItem';
+import useLoadFromApi from '../../hooks/useLoadFromApi';
+import roomApi from '../../api/room';
+import characterApi from '../../api/character';
+import doodadApi from '../../api/doodad';
+import sleep from '../../lib/sleep';
 
 type Props = {
     children: (

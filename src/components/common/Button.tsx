@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { COLORS, BORDERS, SHADOWS } from '../styling/variables';
-import { INPUT } from '../styling/common';
+import { COLORS, BORDERS, SHADOWS } from '../../styling/variables';
+import { INPUT } from '../../styling/common';
 
 const buttonStyle = css({
     ...INPUT,

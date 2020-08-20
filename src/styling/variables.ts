@@ -10,6 +10,7 @@ export const SIZES = {
     QUARTER: 4,
     HALF: 8,
     STANDARD: 16,
+    ONEPOINTFIVE: 24,
     DOUBLE: 32,
 };
 
