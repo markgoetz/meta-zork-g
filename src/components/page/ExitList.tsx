@@ -50,7 +50,7 @@ const ExitList: React.FunctionComponent<Props> = (props) => {
                         <div css={itemStyle}>
                             <div css={directionStyle}>{exit}</div>
                             <div css={buttonStyle}>
-                                <Button type="button" onClick={() => onMove(exit)}>Go</Button>
+                                <Button type="button" onClick={() => onMove(exit)}>Go {exit}</Button>
                             </div>
                             <div css={descriptionStyle}>{exitDescriptions[exit]}</div>
                         </div>
