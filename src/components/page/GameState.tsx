@@ -6,24 +6,14 @@ import roomApi from '../../api/room';
 import characterApi from '../../api/character';
 import doodadApi from '../../api/doodad';
 import sleep from '../../lib/sleep';
+import GameActions from '../../definitions/GameActions';
 
 type Props = {
     children: (
         room: Room | null,
         inventory: InventoryItem[] | null,
         exitDescriptions: { [key: string]: string },
-        actions: { 
-            move: (direction: string) => void,
-            inspect: (slug: string) => void,
-            get: (slug: string) => void,
-            useOnSelf: (slug: string) => void,
-            useOnOther: (slug: string, otherSlug: string) => void,
-            deathwarp: () => void,
-            writeNote: (contents: string) => void,
-            mashInventory: (slug1: string, slug2: string) => void,
-            clearResponse: () => void,
-            setDescriptionFlag: (flag: boolean) => void,
-        },
+        actions: GameActions,
         response: string | undefined,
         descriptionFlag: boolean,
     ) => JSX.Element,
