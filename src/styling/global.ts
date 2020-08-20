@@ -13,7 +13,7 @@ injectGlobal`
 
     html, body {
         font-family: ${FONTS.PRIMARY};
-        font-size: ${SIZES.STANDARD};
+        font-size: ${SIZES.STANDARD}px;
         margin: 0;
         height: 100%;
     }

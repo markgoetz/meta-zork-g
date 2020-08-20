@@ -23,7 +23,6 @@ const Screen: React.FunctionComponent<{}> = () => {
     return (
         <GameState>
             {(room, inventory, exitDescriptions, actions, response, descriptionFlag) => {
-
                 return (
                     <div css={screenStyle}>
                         <RoomDescription

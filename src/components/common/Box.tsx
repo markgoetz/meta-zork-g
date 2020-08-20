@@ -6,7 +6,7 @@ import { SIZES, COLORS } from '../../styling/variables';
 const boxStyle = css({
     ...BORDER,
     padding: SIZES.STANDARD,
-    minHeight: 144,
+    minHeight: 0,
     height: '100%',
     maxHeight: '100%',
     display: 'flex',
