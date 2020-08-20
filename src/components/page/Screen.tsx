@@ -19,19 +19,26 @@ const screenStyle = css({
     padding: SIZES.STANDARD,
 });
 
+const mainStyle = css({ maxHeight: '100%', minHeight: 0, gridArea: 'main' });
+const sidebarStyle = css({ maxHeight: '100%', minHeight: 0, gridArea: 'sidebar' });
+
 const Screen: React.FunctionComponent<{}> = () => {
     return (
         <GameState>
             {(room, inventory, exitDescriptions, actions, response, descriptionFlag) => {
                 return (
                     <div css={screenStyle}>
-                        <RoomDescription
-                            room={room}
-                            exitDescriptions={exitDescriptions}
-                            descriptionFlag={descriptionFlag}
-                            actions={actions}
-                        />
-                        <Sidebar room={room} inventory={inventory} actions={actions} />
+                        <main css={mainStyle}>
+                            <RoomDescription
+                                room={room}
+                                exitDescriptions={exitDescriptions}
+                                descriptionFlag={descriptionFlag}
+                                actions={actions}
+                            />
+                        </main>
+                        <aside css={sidebarStyle}>
+                            <Sidebar room={room} inventory={inventory} actions={actions} />
+                        </aside>
                         <ResponseModal response={response} onClose={actions.clearResponse} />
                     </div>
                 );

@@ -20,7 +20,6 @@ type Props = {
 const mainStyle = css({
     display: 'grid',
     gridGap: SIZES.STANDARD,
-    gridArea: 'main',
     gridTemplateRows: 'minmax(0, auto) minmax(0, auto) minmax(0, auto)',
     gridTemplateColumns: '1fr 1fr',
     gridTemplateAreas: `
@@ -55,7 +54,7 @@ const RoomDescription: React.FunctionComponent<Props> = (props) => {
     const closeNoteModal = () => { setIsNoteModalOpen(false); };
 
     return (
-        <main css={mainStyle}>
+        <div css={mainStyle}>
             <div css={descriptionStyle}>
                 <Box title="Current Room">
                     <VList>
@@ -99,7 +98,7 @@ const RoomDescription: React.FunctionComponent<Props> = (props) => {
                     <DoodadList doodads={room?.corpses ?? []} onInspect={actions.inspect} />
                 </Box>
             </div>
-        </main>
+        </div>
     );
 };
 

@@ -26,7 +26,6 @@ const OVERFLOW_MIXIN = {
 const sidebarStyle = css({
     display: 'grid',
     gridGap: SIZES.STANDARD,
-    gridArea: 'sidebar',
     gridTemplateRows: `calc(100vh - ${116 + SIZES.STANDARD * 3}px) 116px`,
     gridTemplateAreas: `
         "inventory"
@@ -53,7 +52,7 @@ const Sidebar: React.FunctionComponent<Props> = (props) => {
     };
 
     return (
-        <aside css={sidebarStyle}>
+        <div css={sidebarStyle}>
             {/* TODO Your name and score? */}
             <div css={inventoryStyle}>
                 <Box title="Inventory">
@@ -82,7 +81,7 @@ const Sidebar: React.FunctionComponent<Props> = (props) => {
                 onSelectItem={onSelectItem}
                 onClose={() => setSlugToUse(undefined)}
             />
-        </aside>
+        </div>
     );
 };
 
