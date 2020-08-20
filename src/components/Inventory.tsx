@@ -5,11 +5,11 @@ import Button from './Button';
 import { SIZES } from '../styling/variables';
 import List from './List';
 import uniqueSlugs from '../lib/uniqueSlugs';
-import sortUsedInventory from '../lib/sortUsedInventory';
 import { useState } from 'react';
 import VList from './VList';
 import HList from './HList';
 import ItemGrinderModal from './ItemMasherModal';
+import CheckBox from './Checkbox';
 
 type Props = {
     inventory: InventoryItem[],
@@ -29,7 +29,9 @@ const itemStyle = css({
 });
 
 const usedItemStyle = css({
-    textDecoration: 'line-through',
+    '& > button': {
+        textDecoration: 'line-through',
+    }
 });
 
 const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUseSelf, onUseOther, onMashInventory }) => {
@@ -38,8 +40,7 @@ const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUse
 
     const sourceInventory = showUsedItems ? inventory : inventory.filter(item => item.neverUsed);
     const fixedInventory = uniqueSlugs(sourceInventory);
-    const sortedInventory = fixedInventory.sort(sortUsedInventory);
-    const mostRecentInventory = sortedInventory.reverse();
+    const mostRecentInventory = fixedInventory.reverse();
 
     return (
         <VList>
@@ -47,9 +48,12 @@ const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUse
                 <Button onClick={() => { setShowGrinderModal(true); }}>
                     Inventory Masher
                 </Button>
-                <Button onClick={() => setShowUsedItems(!showUsedItems)}>
-                    Toggle Used Items
-                </Button>
+                <CheckBox
+                    id="used-inventory"
+                    selected={showUsedItems}
+                    onToggle={setShowUsedItems}
+                    label="Show used items"
+                />
             </HList>
             <div>
                 <List>

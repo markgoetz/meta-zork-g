@@ -8,7 +8,6 @@ import Select from './Select';
 import HList from './HList';
 import VList from './VList';
 import uniqueSlugs from '../lib/uniqueSlugs';
-import sortUsedInventory from '../lib/sortUsedInventory';
 import CheckBox from './Checkbox';
 
 type Props = {
@@ -39,8 +38,7 @@ const UseItemModal: React.FunctionComponent<Props> = (props) => {
     };
 
     const fixedInventory = uniqueSlugs(inventory);
-    const sortedInventory = fixedInventory.sort(sortUsedInventory);
-    const mostRecentInventory = sortedInventory.reverse();
+    const mostRecentInventory = fixedInventory.reverse();
     const inventorySource = showUsedItems ? mostRecentInventory : mostRecentInventory.filter(item => item.neverUsed);
 
     const options = [
