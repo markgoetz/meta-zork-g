@@ -2,7 +2,7 @@
 import { jsx, css } from '@emotion/core';
 import { useState } from 'react';
 import InventoryItem from '../../definitions/InventoryItem';
-import { SIZES } from '../../styling/variables';
+import { SIZES, COLORS } from '../../styling/variables';
 import ItemMasherModal from './ItemMasherModal';
 import Button from '../common/Button';
 import List from '../common/List';
@@ -17,6 +17,18 @@ type Props = {
     onUseOther: (slug: string) => void,
     onMashInventory: (slug1: string, slug2: string) => void,
 };
+
+const rootStyle = css({
+    position: 'relative',
+})
+
+const buttonContainerStyle = css({
+    position: 'sticky',
+    top: 0,
+    backgroundColor: COLORS.DARK_TRANSLUCENT,
+    width: '100%',
+    padding: SIZES.HALF,
+});
 
 const itemStyle = css({
     display: 'grid',
@@ -42,44 +54,48 @@ const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUse
     const sourceInventory = showUsedItems ? mostRecentInventory : mostRecentInventory.filter(item => item.neverUsed);
 
     return (
-        <VList>
-            <HList>
-                <Button onClick={() => { setShowMasherModal(true); }}>
-                    Inventory Masher
-                </Button>
-                <CheckBox
-                    id="used-inventory"
-                    selected={showUsedItems}
-                    onToggle={setShowUsedItems}
-                    label="Show used items"
-                />
-            </HList>
-            <div>
-                <List>
-                    {sourceInventory.map(
-                        item => (
-                            <li key={item.slug}>
-                                <div css={itemStyle}>
-                                    <div css={item.neverUsed ? [] : [usedItemStyle]}>
-                                        <Button theme="link" onClick={() => onInspect(item.slug)}>
-                                            {item.inventoryMessage} ({item.slug})
-                                        </Button>
+        <div css={rootStyle}>
+            <VList>
+                <div css={buttonContainerStyle}>
+                    <HList>
+                        <Button onClick={() => { setShowMasherModal(true); }}>
+                            Inventory Masher
+                        </Button>
+                        <CheckBox
+                            id="used-inventory"
+                            selected={showUsedItems}
+                            onToggle={setShowUsedItems}
+                            label="Show used items"
+                        />
+                    </HList>
+                </div>
+                <div>
+                    <List>
+                        {sourceInventory.map(
+                            item => (
+                                <li key={item.slug}>
+                                    <div css={itemStyle}>
+                                        <div css={item.neverUsed ? [] : [usedItemStyle]}>
+                                            <Button theme="link" onClick={() => onInspect(item.slug)}>
+                                                {item.inventoryMessage} ({item.slug})
+                                            </Button>
+                                        </div>
+                                        <Button type="button" onClick={() => onUseSelf(item.slug)}>Use Self</Button>
+                                        <Button type="button" onClick={() => onUseOther(item.slug)}>Use Other</Button>
                                     </div>
-                                    <Button type="button" onClick={() => onUseSelf(item.slug)}>Use Self</Button>
-                                    <Button type="button" onClick={() => onUseOther(item.slug)}>Use Other</Button>
-                                </div>
-                            </li>
-                        )
-                    )}
-                </List>
-            </div>
-            <ItemMasherModal
-                isOpen={showMasherModal}
-                onClose={() => setShowMasherModal(false)}
-                inventory={mostRecentInventory}
-                onMashInventory={onMashInventory}
-            />
-        </VList>
+                                </li>
+                            )
+                        )}
+                    </List>
+                </div>
+                <ItemMasherModal
+                    isOpen={showMasherModal}
+                    onClose={() => setShowMasherModal(false)}
+                    inventory={mostRecentInventory}
+                    onMashInventory={onMashInventory}
+                />
+            </VList>
+        </div>
     );
 };
 

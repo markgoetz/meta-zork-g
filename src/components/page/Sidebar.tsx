@@ -26,7 +26,7 @@ const OVERFLOW_MIXIN = {
 const sidebarStyle = css({
     display: 'grid',
     gridGap: SIZES.STANDARD,
-    gridTemplateRows: `calc(100vh - ${116 + SIZES.STANDARD * 3}px) 116px`,
+    gridTemplateRows: `calc(100vh - ${121 + SIZES.STANDARD * 3}px) 121px`,
     gridTemplateAreas: `
         "inventory"
         "deathwarp"
