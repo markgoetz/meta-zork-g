@@ -35,13 +35,13 @@ const UseItemModal: React.FunctionComponent<Props> = (props) => {
         onSelectItem(otherSlug);
     };
 
-    const mostRecentInventory = inventory.reverse();
-    const inventorySource = showUsedItems ? mostRecentInventory : mostRecentInventory.filter(item => item.neverUsed);
+    const mostRecentInventory = [...inventory];
+    mostRecentInventory.reverse();
+    const sourceInventory = showUsedItems ? mostRecentInventory : mostRecentInventory.filter(item => item.neverUsed);
 
     const options = [
-        { value: '', label: '-select an item-' },
         ...doodads.map(doodad => ({ value: doodad.slug, label: `${doodad.lookMessage} (${doodad.slug})` })),
-        ...inventorySource.map(item => ({ value: item.slug, label: `${item.inventoryMessage} (${item.slug})` })),
+        ...sourceInventory.map(item => ({ value: item.slug, label: `${item.inventoryMessage} (${item.slug})` })),
     ];
 
     return (

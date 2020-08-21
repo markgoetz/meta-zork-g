@@ -29,11 +29,11 @@ const ItemMasherModal: React.FunctionComponent<Props> = (props) => {
     useEffect(
         () => {
             if (sourceInventory.length > 0) {
-                setMasher1Slug(sourceInventory[0].slug);
-                setMasher2Slug(sourceInventory[0].slug);
+                setMasher1Slug('');
+                setMasher2Slug('');
             }
         },
-        [sourceInventory],
+        [isOpen, sourceInventory],
     );
 
     const mashSubmit = () => {

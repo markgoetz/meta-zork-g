@@ -38,7 +38,8 @@ const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUse
     const [showGrinderModal, setShowGrinderModal] = useState(false);
 
     const sourceInventory = showUsedItems ? inventory : inventory.filter(item => item.neverUsed);
-    const mostRecentInventory = sourceInventory.reverse();
+    const mostRecentInventory = [...sourceInventory];
+    mostRecentInventory.reverse();
 
     return (
         <VList>

@@ -2,7 +2,7 @@
 import { jsx, css, keyframes } from '@emotion/core';
 import Modal from '../common/Modal';
 import VList from '../common/VList';
-import { SIZES, COLORS } from '../../styling/variables';
+import { SIZES, COLORS, SHADOWS } from '../../styling/variables';
 import { BORDER } from '../../styling/common';
 
 
@@ -38,7 +38,8 @@ const progressContainerStyle = css({
 const progressBarStyle = css({
     backgroundColor: COLORS.PRIMARY,
     height: SIZES.DOUBLE,
-    animation: `width .25s, ${fadeAnimation} 2s infinite`
+    animation: `width .25s, ${fadeAnimation} 2s infinite`,
+    boxShadow: SHADOWS.PRIMARY_GLOW,
 });
 
 const MashStatusModal: React.FunctionComponent<Props> = ({mashCount, totalMashItems}) => {

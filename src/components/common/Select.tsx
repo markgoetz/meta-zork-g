@@ -53,6 +53,7 @@ const Select: React.FunctionComponent<Props> = (props) => {
     return (
         <div css={containerStyle}>
             <select {...selectProps} css={selectStyle} onChange={onItemChange}>
+                <option key="" value="">-select a value-</option>
                 {options.map(option => (
                     <option css={optionStyle} key={option.value} value={option.value}>{option.label}</option>
                 ))}
