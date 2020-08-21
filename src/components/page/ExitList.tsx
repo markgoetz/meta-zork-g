@@ -3,8 +3,9 @@ import { jsx, css } from '@emotion/core';
 import { SIZES } from '../../styling/variables';
 import Button from '../common/Button';
 import List from '../common/List';
-import VList from '../common/VList';
 import Checkbox from '../common/Checkbox';
+import StickyHeaderContainer from '../common/StickyHeaderContainer';
+import HList from '../common/HList';
 
 type Props = {
     exits: string[],
@@ -42,8 +43,12 @@ const ExitList: React.FunctionComponent<Props> = (props) => {
     const { exits, exitDescriptions, onMove, setDescriptionFlag, descriptionFlag } = props;
 
     return (
-        <VList>
-            <Checkbox selected={descriptionFlag} onToggle={setDescriptionFlag} label="Show descriptions" id="show-descriptions" />
+        <StickyHeaderContainer
+            header={(
+                <HList>
+                    <Checkbox selected={descriptionFlag} onToggle={setDescriptionFlag} label="Show descriptions" id="show-descriptions" />
+                </HList>
+            )}>
             <List>
                 {exits.map(exit =>
                     <li key={exit}>
@@ -57,7 +62,7 @@ const ExitList: React.FunctionComponent<Props> = (props) => {
                     </li>
                 )}
             </List>
-        </VList>
+        </StickyHeaderContainer>
     )
 };
 

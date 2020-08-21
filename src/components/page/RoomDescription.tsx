@@ -20,15 +20,17 @@ type Props = {
 const mainStyle = css({
     display: 'grid',
     gridGap: SIZES.STANDARD,
-    gridTemplateRows: 'minmax(0, auto) minmax(0, auto) minmax(0, auto)',
+    gridTemplateRows: 'minmax(0, 2fr) minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr)',
     gridTemplateColumns: '1fr 1fr',
     gridTemplateAreas: `
         "description description"
         "doodads     exits"
+        "notes       exits"
         "notes       corpses"
     `,
-    height: '100%',
-    maxHeight: '100%',
+    height: `calc(100vh - ${SIZES.DOUBLE}px)`,
+    maxHeight: `calc(100vh - ${SIZES.DOUBLE}px)`,
+    minHeight: `calc(100vh - ${SIZES.DOUBLE}px)`,
 });
 
 const OVERFLOW_MIXIN = {
