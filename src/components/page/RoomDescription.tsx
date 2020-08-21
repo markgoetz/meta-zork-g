@@ -9,10 +9,14 @@ import { useState } from 'react';
 import { SIZES } from '../../styling/variables';
 import Room from '../../definitions/Room';
 import GameActions from '../../definitions/GameActions';
+import HList from '../common/HList';
+import Puzzle from '../../definitions/Puzzle';
+import PuzzleModal from './PuzzleModal';
 
 type Props = {
     exitDescriptions: { [key: string]: string },
     room: Room | null,
+    puzzle: Puzzle | null,
     descriptionFlag: boolean,
     actions: GameActions,
 };
@@ -48,12 +52,19 @@ const corpsesStyle = css({ ...OVERFLOW_MIXIN, gridArea: 'corpses' });
 const exitsStyle = css({ ...OVERFLOW_MIXIN, gridArea: 'exits' });
 
 const RoomDescription: React.FunctionComponent<Props> = (props) => {
-    const { exitDescriptions, room, actions, descriptionFlag } = props;
+    const { exitDescriptions, room, actions, descriptionFlag, puzzle } = props;
 
     const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+    const [isPuzzleModalOpen, setIsPuzzleModalOpen] = useState(false);
 
     const openNoteModal = () => { setIsNoteModalOpen(true); };
     const closeNoteModal = () => { setIsNoteModalOpen(false); };
+    
+    const openPuzzleModal = () => {
+        actions.getPuzzle();
+        setIsPuzzleModalOpen(true);
+    };
+    const closePuzzleModal = () => { setIsPuzzleModalOpen(false); };
 
     return (
         <div css={mainStyle}>
@@ -61,13 +72,21 @@ const RoomDescription: React.FunctionComponent<Props> = (props) => {
                 <Box title="Current Room">
                     <VList>
                         <div>{(room != null && room.description)}</div>
-                        <Button onClick={openNoteModal}>Write a Lovely Note</Button>
+                        <HList>
+                            <Button onClick={openNoteModal}>Write a Lovely Note</Button>
+                            <Button onClick={openPuzzleModal}>About This Puzzle</Button>
+                        </HList>
                     </VList>
                 </Box>
                 <WriteNoteModal
                     isOpen={isNoteModalOpen}
                     onClose={closeNoteModal}
                     onWrite={actions.writeNote}
+                />
+                <PuzzleModal
+                    puzzle={puzzle}
+                    isOpen={isPuzzleModalOpen}
+                    onClose={closePuzzleModal}
                 />
             </div>
             <div css={doodadsStyle}>

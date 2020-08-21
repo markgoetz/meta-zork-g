@@ -5,13 +5,16 @@ import useLoadFromApi from '../../hooks/useLoadFromApi';
 import roomApi from '../../api/room';
 import characterApi from '../../api/character';
 import doodadApi from '../../api/doodad';
+import puzzleApi from '../../api/puzzle';
 import sleep from '../../lib/sleep';
 import GameActions from '../../definitions/GameActions';
 import uniqueSlugs from '../../lib/uniqueSlugs';
+import Puzzle from '../../definitions/Puzzle';
 
 type Props = {
     children: (
         room: Room | null,
+        puzzle: Puzzle | null,
         inventory: InventoryItem[] | null,
         exitDescriptions: { [key: string]: string },
         actions: GameActions,
@@ -32,6 +35,7 @@ const GameState: React.FunctionComponent<Props> = (props) => {
 
     const [getRoom, room] = useLoadFromApi(roomApi.lookRoom);
     const [getInventory, inventory] = useLoadFromApi(characterApi.inventory);
+    const [getPuzzle, puzzle] = useLoadFromApi(puzzleApi.getCurrentPuzzle);
     const fixedInventory = inventory != null ? uniqueSlugs(inventory) : null;
     
     const inspect = async(slug: string) => {
@@ -76,6 +80,20 @@ const GameState: React.FunctionComponent<Props> = (props) => {
     const writeNote = async(contents: string) => {
         const responseFromNoteWrite = await roomApi.note(contents);
         setResponse(responseFromNoteWrite);
+    };
+
+    const upVote = async() => {
+        if (puzzle != null) {
+            const responseFromUpvote = await puzzleApi.upVote(puzzle.slug);
+            setResponse(responseFromUpvote);
+        }
+    };
+
+    const downVote = async() => {
+        if (puzzle != null) {
+            const responseFromDownvote = await puzzleApi.downVote(puzzle.slug);
+            setResponse(responseFromDownvote);
+        }
     };
 
     const mashInventory = async(slug1: string, slug2: string) => {
@@ -155,6 +173,9 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         useOnOther,
         deathwarp,
         writeNote,
+        getPuzzle,
+        upVote,
+        downVote,
         mashInventory,
         clearResponse: () => { setResponse(undefined); },
         setDescriptionFlag,
@@ -179,7 +200,7 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         [updateExits]
     );
 
-    return props.children(room, fixedInventory, exitDescriptions, actions, response, descriptionFlag, { totalMashItems, mashCount });
+    return props.children(room, puzzle, fixedInventory, exitDescriptions, actions, response, descriptionFlag, { totalMashItems, mashCount });
 };
 
 export default GameState;

@@ -26,12 +26,13 @@ const sidebarStyle = css({ maxHeight: '100%', minHeight: 0, gridArea: 'sidebar' 
 const Screen: React.FunctionComponent<{}> = () => {
     return (
         <GameState>
-            {(room, inventory, exitDescriptions, actions, response, descriptionFlag, mashSettings) => {
+            {(room, puzzle, inventory, exitDescriptions, actions, response, descriptionFlag, mashSettings) => {
                 return (
                     <div css={screenStyle}>
                         <main css={mainStyle}>
                             <RoomDescription
                                 room={room}
+                                puzzle={puzzle}
                                 exitDescriptions={exitDescriptions}
                                 descriptionFlag={descriptionFlag}
                                 actions={actions}

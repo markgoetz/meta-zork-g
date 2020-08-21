@@ -1,7 +1,7 @@
 type Adventurer = {
     name: string,
     score: number,
-    deaths: 0,
+    deaths: number,
 };
 
 export default Adventurer;

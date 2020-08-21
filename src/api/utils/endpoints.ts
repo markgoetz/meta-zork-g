@@ -19,3 +19,9 @@ export const ROOM = {
     LOOK: `/room/look`,
     NOTE: `/room/note`,
 };
+
+export const PUZZLE = {
+    PUZZLE: '/puzzle/puzzle',
+    LIST: '/puzzle/list',
+    VOTE: '/puzzle/vote',
+};
