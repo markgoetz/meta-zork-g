@@ -11,35 +11,40 @@ import Button from '../common/Button';
 type Props = {
     isOpen: boolean,
     onClose: () => void,
-    sourceInventory: InventoryItem[],
+    inventory: InventoryItem[],
     onMashInventory: (slug1: string, slug2: string) => void,
 };
 
 const ItemMasherModal: React.FunctionComponent<Props> = (props) => {
-    const { isOpen, onClose, sourceInventory, onMashInventory } = props;
+    const { isOpen, onClose, inventory, onMashInventory } = props;
 
     const [masher1Slug, setMasher1Slug] = useState('');
     const [masher2Slug, setMasher2Slug] = useState('');
 
-    const masherOptions = sourceInventory.map(item => ({
-        label: item.inventoryMessage,
+    const masherOptions = inventory.map(item => ({
+        label: `${item.inventoryMessage} (${item.slug})`,
         value: item.slug,
     }));
 
     useEffect(
         () => {
-            if (sourceInventory.length > 0) {
+            if (inventory.length > 0) {
                 setMasher1Slug('');
                 setMasher2Slug('');
             }
         },
-        [isOpen, sourceInventory],
+        [isOpen, inventory],
     );
 
     const mashSubmit = () => {
         onMashInventory(masher1Slug, masher2Slug);
         onClose();
     };
+
+    const masher1Index = inventory.findIndex(item => item.slug === masher1Slug);
+    const masher2Index = inventory.findIndex(item => item.slug === masher2Slug);
+
+    const range = Math.abs(masher1Index - masher2Index) + 1;
 
     return (
         <Modal title="Inventory Masher" isOpen={isOpen} onClose={onClose}>
@@ -49,6 +54,11 @@ const ItemMasherModal: React.FunctionComponent<Props> = (props) => {
                 <Select options={masherOptions} onSelectChange={setMasher1Slug} />
                 <label>End at:</label>
                 <Select options={masherOptions} onSelectChange={setMasher2Slug} />
+
+                {masher1Index !== -1 && masher2Index !== -1 && (
+                    <span>{range} items = {range * range} combinations</span>
+                )}
+
                 <HList>
                     <Button theme="link" onClick={onClose}>Cancel</Button>
                     <Button onClick={mashSubmit}>Mash</Button>

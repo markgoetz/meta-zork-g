@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/core';
 import { useState } from 'react';
 import InventoryItem from '../../definitions/InventoryItem';
 import { SIZES } from '../../styling/variables';
-import ItemGrinderModal from './ItemMasherModal';
+import ItemMasherModal from './ItemMasherModal';
 import Button from '../common/Button';
 import List from '../common/List';
 import VList from '../common/VList';
@@ -35,16 +35,16 @@ const usedItemStyle = css({
 
 const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUseSelf, onUseOther, onMashInventory }) => {
     const [showUsedItems, setShowUsedItems] = useState(false);
-    const [showGrinderModal, setShowGrinderModal] = useState(false);
+    const [showMasherModal, setShowMasherModal] = useState(false);
 
-    const sourceInventory = showUsedItems ? inventory : inventory.filter(item => item.neverUsed);
-    const mostRecentInventory = [...sourceInventory];
+    const mostRecentInventory = [...inventory];
     mostRecentInventory.reverse();
+    const sourceInventory = showUsedItems ? mostRecentInventory : mostRecentInventory.filter(item => item.neverUsed);
 
     return (
         <VList>
             <HList>
-                <Button onClick={() => { setShowGrinderModal(true); }}>
+                <Button onClick={() => { setShowMasherModal(true); }}>
                     Inventory Masher
                 </Button>
                 <CheckBox
@@ -56,7 +56,7 @@ const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUse
             </HList>
             <div>
                 <List>
-                    {mostRecentInventory.map(
+                    {sourceInventory.map(
                         item => (
                             <li key={item.slug}>
                                 <div css={itemStyle}>
@@ -73,10 +73,10 @@ const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUse
                     )}
                 </List>
             </div>
-            <ItemGrinderModal
-                isOpen={showGrinderModal}
-                onClose={() => setShowGrinderModal(false)}
-                sourceInventory={mostRecentInventory}
+            <ItemMasherModal
+                isOpen={showMasherModal}
+                onClose={() => setShowMasherModal(false)}
+                inventory={mostRecentInventory}
                 onMashInventory={onMashInventory}
             />
         </VList>
