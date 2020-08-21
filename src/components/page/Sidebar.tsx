@@ -7,36 +7,42 @@ import InventoryItem from '../../definitions/InventoryItem';
 import GameActions from '../../definitions/GameActions';
 import { useState } from 'react';
 import UseItemModal from './UseItemModal';
-import { SIZES } from '../../styling/variables';
+import { SIZES, COLORS, SHADOWS } from '../../styling/variables';
+import { OVERFLOW } from '../../styling/common';
 import Room from '../../definitions/Room';
+import HList from '../common/HList';
 
 type Props = {
     inventory: InventoryItem[] | null,
     room: Room | null,
     actions: GameActions,
 };
-
-const OVERFLOW_MIXIN = {
-    overflowY: 'auto',
-    minHeight: 0,
-    minWidth: 0,
-    maxHeight: '100%',
-} as { overflowY: 'auto', minHeight: 0, minWidth: 0, maxHeight: string };
-
 const sidebarStyle = css({
     display: 'grid',
     gridGap: SIZES.STANDARD,
-    gridTemplateRows: `calc(100vh - ${121 + SIZES.STANDARD * 3}px) 121px`,
+    gridTemplateRows: `minmax(0, 7fr) 1fr 1fr`,
     gridTemplateAreas: `
         "inventory"
         "deathwarp"
+        "credits"
     `,
     height: '100%',
-    maxHeight: '100%',
+    maxHeight: `calc(100vh - ${SIZES.DOUBLE}px)`,
 });
 
-const inventoryStyle = css({ ...OVERFLOW_MIXIN, gridArea: 'inventory' });
-const deathwarpStyle = css({ gridArea: 'deathwarp' });
+const inventoryStyle = css({ ...OVERFLOW, gridArea: 'inventory' });
+const creditsStyle = css({ gridArea: 'credits' });
+const deathwarpStyle = css({ minHeight: 121, gridArea: 'deathwarp' });
+
+const linkStyle = css({
+    color: COLORS.PRIMARY,
+    textShadow: SHADOWS.PRIMARY_GLOW,
+    transition: 'background-color .25s',
+    '&:hover, &:focus': {
+        backgroundColor: COLORS.PRIMARY_TRANSLUCENT,
+    },
+    padding: SIZES.QUARTER,
+});
 
 const Sidebar: React.FunctionComponent<Props> = (props) => {
     const { inventory, actions, room } = props;
@@ -72,6 +78,21 @@ const Sidebar: React.FunctionComponent<Props> = (props) => {
                             Click to instantly die
                         </Button>
                     </div>
+                </Box>
+            </div>
+            <div css={creditsStyle}>
+                <Box title="Credits">
+                    <HList>
+                        <span>Copyright 2020, Mark Goetz</span>
+                        <a
+                            css={linkStyle}
+                            href="https://github.com/markgoetz/meta-zork-g"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Repository
+                        </a>
+                    </HList>
                 </Box>
             </div>
             <UseItemModal

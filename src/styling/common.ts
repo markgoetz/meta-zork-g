@@ -20,3 +20,10 @@ export const INPUT = {
         backgroundColor: COLORS.PRIMARY_TRANSLUCENT,
     }
 };
+
+export const OVERFLOW = {
+    overflowY: 'auto',
+    minHeight: 0,
+    minWidth: 0,
+    maxHeight: '100%',
+} as { overflowY: 'auto', minHeight: 0, minWidth: 0, maxHeight: string };

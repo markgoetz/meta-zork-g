@@ -13,7 +13,7 @@ type Props = React.HTMLProps<HTMLInputElement> & {
 
 const labelStyle = css({
     cursor: 'pointer',
-    padding: SIZES.HALF,
+    padding: SIZES.QUARTER,
     transition: 'background-color .25s',
     '&:hover,&:focus': {
         backgroundColor: COLORS.PRIMARY_TRANSLUCENT,
