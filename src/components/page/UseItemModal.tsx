@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import InventoryItem from '../../definitions/InventoryItem';
 import Doodad from '../../definitions/Doodad';
-import uniqueSlugs from '../../lib/uniqueSlugs';
 import Modal from '../common/Modal';
 import Button from '../common/Button';
 import Select from '../common/Select';
@@ -36,8 +35,7 @@ const UseItemModal: React.FunctionComponent<Props> = (props) => {
         onSelectItem(otherSlug);
     };
 
-    const fixedInventory = uniqueSlugs(inventory);
-    const mostRecentInventory = fixedInventory.reverse();
+    const mostRecentInventory = inventory.reverse();
     const inventorySource = showUsedItems ? mostRecentInventory : mostRecentInventory.filter(item => item.neverUsed);
 
     const options = [

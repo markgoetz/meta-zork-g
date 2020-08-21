@@ -3,7 +3,6 @@ import { jsx, css } from '@emotion/core';
 import { useState } from 'react';
 import InventoryItem from '../../definitions/InventoryItem';
 import { SIZES } from '../../styling/variables';
-import uniqueSlugs from '../../lib/uniqueSlugs';
 import ItemGrinderModal from './ItemMasherModal';
 import Button from '../common/Button';
 import List from '../common/List';
@@ -39,8 +38,7 @@ const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUse
     const [showGrinderModal, setShowGrinderModal] = useState(false);
 
     const sourceInventory = showUsedItems ? inventory : inventory.filter(item => item.neverUsed);
-    const fixedInventory = uniqueSlugs(sourceInventory);
-    const mostRecentInventory = fixedInventory.reverse();
+    const mostRecentInventory = sourceInventory.reverse();
 
     return (
         <VList>

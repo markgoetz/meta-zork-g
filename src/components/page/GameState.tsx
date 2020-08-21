@@ -7,6 +7,7 @@ import characterApi from '../../api/character';
 import doodadApi from '../../api/doodad';
 import sleep from '../../lib/sleep';
 import GameActions from '../../definitions/GameActions';
+import uniqueSlugs from '../../lib/uniqueSlugs';
 
 type Props = {
     children: (
@@ -31,6 +32,7 @@ const GameState: React.FunctionComponent<Props> = (props) => {
 
     const [getRoom, room] = useLoadFromApi(roomApi.lookRoom);
     const [getInventory, inventory] = useLoadFromApi(characterApi.inventory);
+    const fixedInventory = inventory != null ? uniqueSlugs(inventory) : null;
     
     const inspect = async(slug: string) => {
         const description = await doodadApi.inspect(slug);
@@ -77,12 +79,12 @@ const GameState: React.FunctionComponent<Props> = (props) => {
     };
 
     const mashInventory = async(slug1: string, slug2: string) => {
-        if (inventory == null) {
+        if (fixedInventory == null) {
             return;
         }
 
-        const index1 = inventory.findIndex(item => item.slug === slug1);
-        const index2 = inventory.findIndex(item => item.slug === slug2);
+        const index1 = fixedInventory.findIndex(item => item.slug === slug1);
+        const index2 = fixedInventory.findIndex(item => item.slug === slug2);
 
         if (index1 === -1 || index2 === -1) {
             throw new Error('Cannot find index.');
@@ -91,20 +93,24 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         const [startIndex, endIndex] = (index1 < index2) ? [index1, index2] : [index2, index1];
 
         const mashRange = endIndex - startIndex + 1;
-        setTotalMashItems(mashRange * mashRange - mashRange);
+        setTotalMashItems(mashRange * mashRange);
 
         let count = 0;
 
         for (let i = startIndex; i <= endIndex; i++) {
             for (let j = startIndex; j <= endIndex; j++) {
-                if (i === j) { continue; }
 
                 count++;
                 setMashCount(count);
 
-                const slugA = inventory[i].slug;
-                const slugB = inventory[j].slug;
-                await doodadApi.useOnOther(slugA, slugB);
+                const slugA = fixedInventory[i].slug;
+                const slugB = fixedInventory[j].slug;
+
+                if (slugA !== slugB) {
+                    await doodadApi.useOnOther(slugA, slugB);
+                } else {
+                    await doodadApi.useOnSelf(slugA);
+                }
 
                 await sleep(700);
             }
@@ -173,7 +179,7 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         [updateExits]
     );
 
-    return props.children(room, inventory, exitDescriptions, actions, response, descriptionFlag, { totalMashItems, mashCount });
+    return props.children(room, fixedInventory, exitDescriptions, actions, response, descriptionFlag, { totalMashItems, mashCount });
 };
 
 export default GameState;
