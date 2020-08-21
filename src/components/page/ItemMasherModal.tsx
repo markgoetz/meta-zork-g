@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import InventoryItem from '../../definitions/InventoryItem';
 import Modal from '../common/Modal';
 import VList from '../common/VList';
@@ -25,6 +25,16 @@ const ItemMasherModal: React.FunctionComponent<Props> = (props) => {
         label: item.inventoryMessage,
         value: item.slug,
     }));
+
+    useEffect(
+        () => {
+            if (sourceInventory.length > 0) {
+                setMasher1Slug(sourceInventory[0].slug);
+                setMasher2Slug(sourceInventory[0].slug);
+            }
+        },
+        [sourceInventory],
+    );
 
     const mashSubmit = () => {
         onMashInventory(masher1Slug, masher2Slug);

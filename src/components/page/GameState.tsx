@@ -81,7 +81,7 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         const index1 = inventory.findIndex(item => item.slug === slug1);
         const index2 = inventory.findIndex(item => item.slug === slug2);
 
-        if (index1 == null || index2 == null) {
+        if (index1 === -1 || index2 === -1) {
             throw new Error('Cannot find index.');
         }
 
