@@ -16,6 +16,7 @@ type Props = {
         actions: GameActions,
         response: string | undefined,
         descriptionFlag: boolean,
+        mashSettings: { mashCount: number | undefined, totalMashItems: number | undefined },
     ) => JSX.Element,
 };
 
@@ -25,6 +26,8 @@ const GameState: React.FunctionComponent<Props> = (props) => {
     const [response, setResponse] = useState<string>();
     const [exitDescriptions, setExitDescriptions] = useState<DescriptionMap>({});
     const [descriptionFlag, setDescriptionFlag] = useState(true);
+    const [mashCount, setMashCount] = useState<number>();
+    const [totalMashItems, setTotalMashItems] = useState<number>();
 
     const [getRoom, room] = useLoadFromApi(roomApi.lookRoom);
     const [getInventory, inventory] = useLoadFromApi(characterApi.inventory);
@@ -87,9 +90,17 @@ const GameState: React.FunctionComponent<Props> = (props) => {
 
         const [startIndex, endIndex] = (index1 < index2) ? [index1, index2] : [index2, index1];
 
+        const mashRange = endIndex - startIndex + 1;
+        setTotalMashItems(mashRange * mashRange - mashRange);
+
+        let count = 0;
+
         for (let i = startIndex; i <= endIndex; i++) {
             for (let j = startIndex; j <= endIndex; j++) {
                 if (i === j) { continue; }
+
+                count++;
+                setMashCount(count);
 
                 const slugA = inventory[i].slug;
                 const slugB = inventory[j].slug;
@@ -98,6 +109,9 @@ const GameState: React.FunctionComponent<Props> = (props) => {
                 await sleep(700);
             }
         }
+
+        setTotalMashItems(undefined);
+        setMashCount(undefined);
 
         setResponse('Mashing completed.');
         getInventory();
@@ -159,7 +173,7 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         [updateExits]
     );
 
-    return props.children(room, inventory, exitDescriptions, actions, response, descriptionFlag);
+    return props.children(room, inventory, exitDescriptions, actions, response, descriptionFlag, { totalMashItems, mashCount });
 };
 
 export default GameState;
