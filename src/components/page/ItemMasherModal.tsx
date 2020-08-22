@@ -38,7 +38,7 @@ const ItemMasherModal: React.FunctionComponent<Props> = (props) => {
         onClose();
     };
 
-    const sourceInventory = mashUsedItems ? inventory : inventory.filter(item => !item.neverUsed);
+    const sourceInventory = mashUsedItems ? inventory : inventory.filter(item => item.neverUsed);
 
     const masherOptions = sourceInventory.map(item => ({
         label: `${item.inventoryMessage} (${item.slug})`,
