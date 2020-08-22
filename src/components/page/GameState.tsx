@@ -96,13 +96,15 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         }
     };
 
-    const mashInventory = async(slug1: string, slug2: string) => {
+    const mashInventory = async(slug1: string, slug2: string, mashUsedItems: boolean) => {
         if (fixedInventory == null) {
             return;
         }
 
-        const index1 = fixedInventory.findIndex(item => item.slug === slug1);
-        const index2 = fixedInventory.findIndex(item => item.slug === slug2);
+        const sourceInventory = mashUsedItems ? fixedInventory : fixedInventory.filter(item => !item.neverUsed);
+
+        const index1 = sourceInventory.findIndex(item => item.slug === slug1);
+        const index2 = sourceInventory.findIndex(item => item.slug === slug2);
 
         if (index1 === -1 || index2 === -1) {
             throw new Error('Cannot find index.');
@@ -121,8 +123,8 @@ const GameState: React.FunctionComponent<Props> = (props) => {
                 count++;
                 setMashCount(count);
 
-                const slugA = fixedInventory[i].slug;
-                const slugB = fixedInventory[j].slug;
+                const slugA = sourceInventory[i].slug;
+                const slugB = sourceInventory[j].slug;
 
                 if (slugA !== slugB) {
                     await doodadApi.useOnOther(slugA, slugB);

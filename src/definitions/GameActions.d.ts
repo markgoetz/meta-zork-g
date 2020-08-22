@@ -9,7 +9,7 @@ type GameActions = {
     getPuzzle: () => void,
     upVote: () => void,
     downVote: () => void,
-    mashInventory: (slug1: string, slug2: string) => void,
+    mashInventory: (slug1: string, slug2: string, mashUsedItems: boolean) => void,
     clearResponse: () => void,
     setDescriptionFlag: (flag: boolean) => void,
 };

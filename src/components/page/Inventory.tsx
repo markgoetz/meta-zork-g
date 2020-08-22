@@ -15,7 +15,7 @@ type Props = {
     onInspect: (slug: string) => void,
     onUseSelf: (slug: string) => void,
     onUseOther: (slug: string) => void,
-    onMashInventory: (slug1: string, slug2: string) => void,
+    onMashInventory: (slug1: string, slug2: string, mashUsedItems: boolean) => void,
 };
 
 const itemStyle = css({
