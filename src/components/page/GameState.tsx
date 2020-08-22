@@ -101,7 +101,7 @@ const GameState: React.FunctionComponent<Props> = (props) => {
             return;
         }
 
-        const sourceInventory = mashUsedItems ? fixedInventory : fixedInventory.filter(item => !item.neverUsed);
+        const sourceInventory = mashUsedItems ? fixedInventory : fixedInventory.filter(item => item.neverUsed);
 
         const index1 = sourceInventory.findIndex(item => item.slug === slug1);
         const index2 = sourceInventory.findIndex(item => item.slug === slug2);
