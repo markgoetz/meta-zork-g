@@ -76,6 +76,20 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         getInventory();
         getRoom();
     };
+    
+    const resume = async() => {
+        const responseFromResume = await characterApi.resume();
+        setResponse(responseFromResume);
+        getInventory();
+        getRoom();
+    };
+
+    const teleport = async(slug: string) => {
+        const responseFromTeleport = await characterApi.teleport(slug);
+        setResponse(responseFromTeleport);
+        getInventory();
+        getRoom();
+    }
 
     const writeNote = async(contents: string) => {
         const responseFromNoteWrite = await roomApi.note(contents);
@@ -170,6 +184,8 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         useOnSelf,
         useOnOther,
         deathwarp,
+        resume,
+        teleport,
         writeNote,
         getPuzzle,
         upVote,

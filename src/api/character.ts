@@ -32,10 +32,23 @@ const rename = async (name: string) => {
     return response.data.response;
 };
 
+const resume = async() => {
+    const client = getClient();
+    const response = await client.get(CHARACTER.RESUME) as Response<string>;
+    return response.data.response;
+};
+
+const teleport = async(slug: string) => {
+    const client = getClient();
+    const response = await client.post(CHARACTER.TELEPORT, { slug }) as Response<string>;
+    return response.data.response;
+};
 
 export default {
     me,
     inventory,
     recall,
     rename,
+    resume,
+    teleport,
 };

@@ -11,6 +11,8 @@ import { SIZES, COLORS, SHADOWS } from '../../styling/variables';
 import { OVERFLOW } from '../../styling/common';
 import Room from '../../definitions/Room';
 import HList from '../common/HList';
+import TeleportModal from './TeleportModal';
+import VList from '../common/VList';
 
 type Props = {
     inventory: InventoryItem[] | null,
@@ -20,7 +22,7 @@ type Props = {
 const sidebarStyle = css({
     display: 'grid',
     gridGap: SIZES.STANDARD,
-    gridTemplateRows: `minmax(0, 7fr) 1fr 1fr`,
+    gridTemplateRows: `minmax(0, 7fr) minmax(180px, 1fr) 1fr`,
     gridTemplateAreas: `
         "inventory"
         "deathwarp"
@@ -47,6 +49,7 @@ const linkStyle = css({
 const Sidebar: React.FunctionComponent<Props> = (props) => {
     const { inventory, actions, room } = props;
     const [slugToUse, setSlugToUse] = useState<string>();
+    const [isTeleportModalOpen, setIsTeleportModalOpen] = useState(false);
 
     const onSelectItem = (otherSlug: string) => {
         if (slugToUse == null) {
@@ -72,12 +75,21 @@ const Sidebar: React.FunctionComponent<Props> = (props) => {
                 </Box>
             </div>
             <div css={deathwarpStyle}>
-                <Box title="Deathwarp">
-                    <div css={{ textAlign: 'center'}}>
-                        <Button theme="secondary" onClick={() => actions.deathwarp()}>
-                            Click to instantly die
-                        </Button>
-                    </div>
+                <Box title="Teleport">
+                    <VList>
+                        <span>Teleport to:</span>
+                        <HList>
+                            <Button theme="secondary" onClick={() => setIsTeleportModalOpen(true)}>
+                                Another puzzle
+                            </Button>
+                            <Button theme="secondary" onClick={() => actions.deathwarp()}>
+                                Puzzle start
+                            </Button>
+                            <Button theme="secondary" onClick={() => actions.resume()}>
+                                Newest solved puzzle
+                            </Button>
+                        </HList>
+                    </VList>
                 </Box>
             </div>
             <div css={creditsStyle}>
@@ -101,6 +113,11 @@ const Sidebar: React.FunctionComponent<Props> = (props) => {
                 doodads={room?.doodads ?? []}
                 onSelectItem={onSelectItem}
                 onClose={() => setSlugToUse(undefined)}
+            />
+            <TeleportModal
+                onTeleport={actions.teleport}
+                isOpen={isTeleportModalOpen}
+                onClose={() => setIsTeleportModalOpen(false)}
             />
         </div>
     );

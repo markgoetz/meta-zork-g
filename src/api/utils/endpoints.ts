@@ -6,6 +6,8 @@ export const CHARACTER = {
     LEADERBOARD: `/character/leaderboard`,
     LOSERBOARD: `/character/loserboard`,
     ACTIVITY: `/character/activity`,
+    RESUME: '/character/resume',
+    TELEPORT: `/character/teleport`,
 };
 
 export const DOODAD = {
