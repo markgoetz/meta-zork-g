@@ -2,6 +2,7 @@
 import { jsx, css } from '@emotion/core';
 import { BORDER } from '../../styling/common';
 import { SIZES, COLORS } from '../../styling/variables';
+import HList from './HList';
 
 const boxStyle = css({
     ...BORDER,
@@ -14,12 +15,14 @@ const boxStyle = css({
     backgroundColor: COLORS.PRIMARY_TRANSLUCENT,
 });
 
-const titleStyle = css({
+const headerStyle = {
     flexGrow: 0,
     flexShrink: 0,
-    textAlign: 'center',
-    fontSize: SIZES.ONEPOINTFIVE,
     marginBottom: SIZES.STANDARD,
+};
+
+const titleStyle = css({
+    fontSize: SIZES.ONEPOINTFIVE,
 });
 
 const contentsStyle = css({
@@ -30,11 +33,17 @@ const contentsStyle = css({
 
 type Props = {
     title: string,
+    header?: React.ReactNode,
 };
 
 const Box: React.FunctionComponent<Props> = props => (
     <div css={boxStyle}>
-        <div css={titleStyle}>{props.title}</div>
+        <div css={headerStyle}>
+            <HList>
+                <div css={titleStyle}>{props.title}</div>
+                {props.header}
+            </HList>
+        </div>
         <div css={contentsStyle}>{props.children}</div>
     </div>
 );

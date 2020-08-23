@@ -10,6 +10,7 @@ import { SIZES } from '../../styling/variables';
 import Room from '../../definitions/Room';
 import GameActions from '../../definitions/GameActions';
 import HList from '../common/HList';
+import Checkbox from '../common/Checkbox';
 import Puzzle from '../../definitions/Puzzle';
 import PuzzleModal from './PuzzleModal';
 import VoteModal from './VoteModal';
@@ -105,22 +106,24 @@ const RoomDescription: React.FunctionComponent<Props> = (props) => {
                 </Box>
             </div>
             <div css={exitsStyle}>
-                <Box title="Exits">
+                <Box title="Exits" header={
+                    <Checkbox
+                        selected={descriptionFlag}
+                        onToggle={actions.setDescriptionFlag}
+                        label="Show descriptions"
+                        id="show-descriptions"
+                    />
+                }>
                     <ExitList
                         exits={room?.exits ?? []}
                         exitDescriptions={exitDescriptions}
                         onMove={actions.move}
-                        setDescriptionFlag={actions.setDescriptionFlag}
-                        descriptionFlag={descriptionFlag}
                     />
                 </Box>
             </div>
             <div css={notesStyle}>
-                <Box title="Notes">
-                    <VList>
-                        <Button onClick={openNoteModal}>Write a Lovely Note</Button>
-                        <DoodadList doodads={room?.notes ?? []} onInspect={actions.inspect} />
-                    </VList>
+                <Box title="Notes" header={<Button onClick={openNoteModal}>Write a Lovely Note</Button>}>
+                    <DoodadList doodads={room?.notes ?? []} onInspect={actions.inspect} />
                 </Box>
             </div>
             <div css={corpsesStyle}>

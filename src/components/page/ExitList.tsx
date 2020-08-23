@@ -3,16 +3,11 @@ import { jsx, css } from '@emotion/core';
 import { SIZES } from '../../styling/variables';
 import Button from '../common/Button';
 import List from '../common/List';
-import Checkbox from '../common/Checkbox';
-import StickyHeaderContainer from '../common/StickyHeaderContainer';
-import HList from '../common/HList';
 
 type Props = {
     exits: string[],
     exitDescriptions: { [key: string] : string },
-    descriptionFlag: boolean,
     onMove: (direction: string) => void,
-    setDescriptionFlag: (flag: boolean) => void,
 };
 
 const directionStyle = css({
@@ -40,29 +35,22 @@ const itemStyle = css({
 });
 
 const ExitList: React.FunctionComponent<Props> = (props) => {
-    const { exits, exitDescriptions, onMove, setDescriptionFlag, descriptionFlag } = props;
+    const { exits, exitDescriptions, onMove } = props;
 
     return (
-        <StickyHeaderContainer
-            header={(
-                <HList>
-                    <Checkbox selected={descriptionFlag} onToggle={setDescriptionFlag} label="Show descriptions" id="show-descriptions" />
-                </HList>
-            )}>
-            <List>
-                {exits.map(exit =>
-                    <li key={exit}>
-                        <div css={itemStyle}>
-                            <div css={directionStyle}>{exit}</div>
-                            <div css={buttonStyle}>
-                                <Button type="button" onClick={() => onMove(exit)}>Go {exit}</Button>
-                            </div>
-                            <div css={descriptionStyle}>{exitDescriptions[exit]}</div>
+        <List>
+            {exits.map(exit =>
+                <li key={exit}>
+                    <div css={itemStyle}>
+                        <div css={directionStyle}>{exit}</div>
+                        <div css={buttonStyle}>
+                            <Button type="button" onClick={() => onMove(exit)}>Go {exit}</Button>
                         </div>
-                    </li>
-                )}
-            </List>
-        </StickyHeaderContainer>
+                        <div css={descriptionStyle}>{exitDescriptions[exit]}</div>
+                    </div>
+                </li>
+            )}
+        </List>
     )
 };
 
