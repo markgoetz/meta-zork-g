@@ -12,6 +12,7 @@ import GameActions from '../../definitions/GameActions';
 import HList from '../common/HList';
 import Puzzle from '../../definitions/Puzzle';
 import PuzzleModal from './PuzzleModal';
+import VoteModal from './VoteModal';
 
 type Props = {
     exitDescriptions: { [key: string]: string },
@@ -56,6 +57,7 @@ const RoomDescription: React.FunctionComponent<Props> = (props) => {
 
     const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
     const [isPuzzleModalOpen, setIsPuzzleModalOpen] = useState(false);
+    const [isVoteModalOpen, setIsVoteModalOpen] = useState(false);
 
     const openNoteModal = () => { setIsNoteModalOpen(true); };
     const closeNoteModal = () => { setIsNoteModalOpen(false); };
@@ -66,6 +68,9 @@ const RoomDescription: React.FunctionComponent<Props> = (props) => {
     };
     const closePuzzleModal = () => { setIsPuzzleModalOpen(false); };
 
+    const openVoteModal = () => { setIsVoteModalOpen(true); };
+    const closeVoteModal = () => { setIsVoteModalOpen(false); };
+
     return (
         <div css={mainStyle}>
             <div css={descriptionStyle}>
@@ -75,6 +80,7 @@ const RoomDescription: React.FunctionComponent<Props> = (props) => {
                         <HList>
                             <Button onClick={openNoteModal}>Write a Lovely Note</Button>
                             <Button onClick={openPuzzleModal}>About This Puzzle</Button>
+                            <Button onClick={openVoteModal}>Vote for a Puzzle</Button>
                         </HList>
                     </VList>
                 </Box>
@@ -88,6 +94,7 @@ const RoomDescription: React.FunctionComponent<Props> = (props) => {
                     isOpen={isPuzzleModalOpen}
                     onClose={closePuzzleModal}
                 />
+                <VoteModal actions={actions} isOpen={isVoteModalOpen} onClose={closeVoteModal} />
             </div>
             <div css={doodadsStyle}>
                 <Box title="Doodads">

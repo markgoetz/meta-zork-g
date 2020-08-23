@@ -82,18 +82,14 @@ const GameState: React.FunctionComponent<Props> = (props) => {
         setResponse(responseFromNoteWrite);
     };
 
-    const upVote = async() => {
-        if (puzzle != null) {
-            const responseFromUpvote = await puzzleApi.upVote(puzzle.slug);
-            setResponse(responseFromUpvote);
-        }
+    const upVote = async(slug: string) => {
+        const responseFromUpvote = await puzzleApi.upVote(slug);
+        setResponse(responseFromUpvote);
     };
 
-    const downVote = async() => {
-        if (puzzle != null) {
-            const responseFromDownvote = await puzzleApi.downVote(puzzle.slug);
-            setResponse(responseFromDownvote);
-        }
+    const downVote = async(slug: string) => {
+        const responseFromDownvote = await puzzleApi.downVote(slug);
+        setResponse(responseFromDownvote);
     };
 
     const mashInventory = async(slug1: string, slug2: string, mashUsedItems: boolean) => {
