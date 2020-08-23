@@ -78,7 +78,6 @@ const RoomDescription: React.FunctionComponent<Props> = (props) => {
                     <VList>
                         <div>{(room != null && room.description)}</div>
                         <HList>
-                            <Button onClick={openNoteModal}>Write a Lovely Note</Button>
                             <Button onClick={openPuzzleModal}>About This Puzzle</Button>
                             <Button onClick={openVoteModal}>Vote for a Puzzle</Button>
                         </HList>
@@ -118,7 +117,10 @@ const RoomDescription: React.FunctionComponent<Props> = (props) => {
             </div>
             <div css={notesStyle}>
                 <Box title="Notes">
-                    <DoodadList doodads={room?.notes ?? []} onInspect={actions.inspect} />
+                    <VList>
+                        <Button onClick={openNoteModal}>Write a Lovely Note</Button>
+                        <DoodadList doodads={room?.notes ?? []} onInspect={actions.inspect} />
+                    </VList>
                 </Box>
             </div>
             <div css={corpsesStyle}>
