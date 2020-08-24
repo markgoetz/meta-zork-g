@@ -94,6 +94,7 @@ const GameState: React.FunctionComponent<Props> = (props) => {
     const writeNote = async(contents: string) => {
         const responseFromNoteWrite = await roomApi.note(contents);
         setResponse(responseFromNoteWrite);
+        getRoom();
     };
 
     const upVote = async(slug: string) => {
@@ -127,14 +128,16 @@ const GameState: React.FunctionComponent<Props> = (props) => {
 
         let count = 0;
 
-        for (let i = startIndex; i <= endIndex; i++) {
-            for (let j = startIndex; j <= endIndex; j++) {
+        for (let i = endIndex; i >= startIndex; i--) {
+            for (let j = endIndex; j >= startIndex; j--) {
 
                 count++;
                 setMashCount(count);
 
                 const slugA = sourceInventory[i].slug;
                 const slugB = sourceInventory[j].slug;
+
+                console.log(`Mashing ${slugA} and ${slugB}`);
 
                 if (slugA !== slugB) {
                     await doodadApi.useOnOther(slugA, slugB);
