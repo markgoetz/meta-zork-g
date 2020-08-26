@@ -9,9 +9,12 @@ import List from '../common/List';
 import HList from '../common/HList';
 import CheckBox from '../common/Checkbox';
 import StickyHeaderContainer from '../common/StickyHeaderContainer';
+import Toggle from '../common/Toggle';
+import VList from '../common/VList';
 
 type Props = {
     inventory: InventoryItem[],
+    currentPuzzleSlug: string,
     onInspect: (slug: string) => void,
     onUseSelf: (slug: string) => void,
     onUseOther: (slug: string) => void,
@@ -33,13 +36,26 @@ const usedItemStyle = css({
     }
 });
 
-const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUseSelf, onUseOther, onMashInventory }) => {
+const Inventory: React.FunctionComponent<Props> = (props) => {
+    const { inventory, currentPuzzleSlug, onInspect, onUseSelf, onUseOther, onMashInventory } = props;
+
     const [showUsedItems, setShowUsedItems] = useState(false);
+    const [showOtherPuzzleItems, setShowOtherPuzzleItems] = useState(false);
     const [showMasherModal, setShowMasherModal] = useState(false);
 
     const mostRecentInventory = [...inventory];
     mostRecentInventory.reverse();
-    const sourceInventory = showUsedItems ? mostRecentInventory : mostRecentInventory.filter(item => item.neverUsed);
+    const sourceInventory = mostRecentInventory.filter(item => {
+        if (!showUsedItems && !item.neverUsed) {
+            return false;
+        }
+
+        if (!showOtherPuzzleItems && item.puzzleSlug !== currentPuzzleSlug) {
+            return false;
+        }
+
+        return true;
+    });
 
     return (
         <StickyHeaderContainer
@@ -48,12 +64,23 @@ const Inventory: React.FunctionComponent<Props> = ({ inventory, onInspect, onUse
                     <Button onClick={() => { setShowMasherModal(true); }}>
                         Inventory Masher
                     </Button>
-                    <CheckBox
-                        id="used-inventory"
-                        selected={showUsedItems}
-                        onToggle={setShowUsedItems}
-                        label="Show used items"
-                    />
+                    <Toggle label="Filter Inventory">
+                        <VList>
+                            <CheckBox
+                                id="used-inventory"
+                                selected={showUsedItems}
+                                onToggle={setShowUsedItems}
+                                label="Show used items"
+                            />
+                            <CheckBox
+                                id="other-inventory"
+                                selected={showOtherPuzzleItems}
+                                onToggle={setShowOtherPuzzleItems}
+                                label="Show items from other puzzles"
+                            />
+                        </VList>
+                    </Toggle>
+                    
                 </HList>
             )}
         >

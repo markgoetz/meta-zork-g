@@ -67,6 +67,7 @@ const Sidebar: React.FunctionComponent<Props> = (props) => {
                 <Box title="Inventory">
                     <Inventory
                         inventory={inventory ?? []}
+                        currentPuzzleSlug={room?.puzzleSlug ?? ''}
                         onInspect={actions.inspect}
                         onUseSelf={actions.useOnSelf}
                         onUseOther={setSlugToUse}

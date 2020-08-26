@@ -36,6 +36,8 @@ const iconStyle = css({
     height: SIZES.STANDARD,
     width: SIZES.STANDARD,
     padding: 0,
+    flexShrink: 0,
+    flexGrow: 0,
 });
 
 const filledIconStyle = css({

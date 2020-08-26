@@ -3,7 +3,7 @@ export const COLORS = {
     PRIMARY: '#20E0C2',
     SECONDARY: '#F24541',
     PRIMARY_TRANSLUCENT: 'rgba(32, 224, 194, .16)',
-    DARK_TRANSLUCENT: 'rgba(1, 12, 10, .8)'
+    DARK_TRANSLUCENT: 'rgba(3, 49, 41, .9)'
 }
 
 export const SIZES = {
