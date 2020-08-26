@@ -39,19 +39,11 @@ const mainStyle = css({
     minHeight: `calc(100vh - ${SIZES.DOUBLE}px)`,
 });
 
-const OVERFLOW_MIXIN = {
-    overflowY: 'auto',
-    minHeight: 0,
-    minWidth: 0,
-    maxHeight: '100%',
-} as { overflowY: 'auto', minHeight: 0, minWidth: 0, maxHeight: string };
-
-
 const descriptionStyle = css({ gridArea: 'description' });
-const doodadsStyle = css({ ...OVERFLOW_MIXIN, gridArea: 'doodads' });
-const notesStyle = css({ ...OVERFLOW_MIXIN, gridArea: 'notes' });
-const corpsesStyle = css({ ...OVERFLOW_MIXIN, gridArea: 'corpses' });
-const exitsStyle = css({ ...OVERFLOW_MIXIN, gridArea: 'exits' });
+const doodadsStyle = css({ gridArea: 'doodads' });
+const notesStyle = css({ gridArea: 'notes' });
+const corpsesStyle = css({ gridArea: 'corpses' });
+const exitsStyle = css({ gridArea: 'exits' });
 
 const RoomDescription: React.FunctionComponent<Props> = (props) => {
     const { exitDescriptions, room, actions, descriptionFlag, puzzle } = props;
