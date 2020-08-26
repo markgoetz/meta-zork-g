@@ -2,10 +2,11 @@
 import { jsx, css } from '@emotion/core';
 import { SIZES } from '../../styling/variables';
 
-type Props = {};
+type Props = {
+    align?: 'left' | 'right' | 'center',
+};
 
 const listStyle = css({
-    alignItems: 'center',
     justifyContent: 'center',
     display: 'flex',
     flexDirection: 'column',
@@ -14,12 +15,38 @@ const listStyle = css({
     },
 });
 
-const VList: React.FunctionComponent<Props> = ({ children }) => {
+const leftStyle = css({
+    alignItems: 'flex-start',
+});
+
+const rightStyle = css({
+    alignItems: 'flex-end',
+});
+
+const centerStyle = css({
+    alignItems: 'center',
+});
+
+const VList: React.FunctionComponent<Props> = ({ align, children }) => {
+    const styles = [listStyle];
+
+    if (align === 'left') {
+        styles.push(leftStyle);
+    } else if (align === 'right') {
+        styles.push(rightStyle);
+    } else {
+        styles.push(centerStyle);
+    }
+
     return (
-        <div css={listStyle}>
+        <div css={styles}>
             { children }
         </div>
     );
+};
+
+VList.defaultProps = {
+    align: 'center',
 };
 
 export default VList;

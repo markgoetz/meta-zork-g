@@ -64,8 +64,8 @@ const Inventory: React.FunctionComponent<Props> = (props) => {
                     <Button onClick={() => { setShowMasherModal(true); }}>
                         Inventory Masher
                     </Button>
-                    <Toggle label="Filter Inventory">
-                        <VList>
+                    <Toggle label="Filter Inventory...">
+                        <VList align="left">
                             <CheckBox
                                 id="used-inventory"
                                 selected={showUsedItems}
