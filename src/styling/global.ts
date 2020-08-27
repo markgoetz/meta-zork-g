@@ -22,4 +22,8 @@ injectGlobal`
         box-sizing: border-box;
         text-shadow: ${SHADOWS.PRIMARY_GLOW};
     }
+
+    ul {
+        margin: 0;
+    }
 `;
