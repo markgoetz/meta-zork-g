@@ -34,12 +34,16 @@ const itemStyle = css({
     alignItems: 'center',
 });
 
+const EXIT_ORDER = ['north', 'south', 'east', 'west', 'up', 'down'];
+
 const ExitList: React.FunctionComponent<Props> = (props) => {
     const { exits, exitDescriptions, onMove } = props;
 
+    const sortedExits = exits.sort((a, b) => EXIT_ORDER.indexOf(a) - EXIT_ORDER.indexOf(b));
+
     return (
         <List>
-            {exits.map(exit =>
+            {sortedExits.map(exit =>
                 <li key={exit}>
                     <div css={itemStyle}>
                         <div css={directionStyle}>{exit}</div>
