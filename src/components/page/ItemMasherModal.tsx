@@ -11,17 +11,19 @@ import CheckBox from '../common/Checkbox';
 
 type Props = {
     isOpen: boolean,
+    puzzleSlug: string,
     onClose: () => void,
     inventory: InventoryItem[],
     onMashInventory: (slug1: string, slug2: string, mashUsedItems: boolean) => void,
 };
 
 const ItemMasherModal: React.FunctionComponent<Props> = (props) => {
-    const { isOpen, onClose, inventory, onMashInventory } = props;
+    const { isOpen, onClose, puzzleSlug, inventory, onMashInventory } = props;
     
     const [masher1Slug, setMasher1Slug] = useState('');
     const [masher2Slug, setMasher2Slug] = useState('');
     const [mashUsedItems, setMashUsedItems] = useState(false);
+    const [otherPuzzleItems, setOtherPuzzleItems] = useState(false);
 
     useEffect(
         () => {
@@ -38,7 +40,16 @@ const ItemMasherModal: React.FunctionComponent<Props> = (props) => {
         onClose();
     };
 
-    const sourceInventory = mashUsedItems ? inventory : inventory.filter(item => item.neverUsed);
+    const sourceInventory = inventory.filter(
+        item => {
+            if (!mashUsedItems && !item.neverUsed) {
+                return false;
+            } else if (!otherPuzzleItems && item.puzzleSlug !== puzzleSlug) {
+                return false;
+            }
+            return true;
+        }
+    );
 
     const masherOptions = sourceInventory.map(item => ({
         label: `${item.inventoryMessage} (${item.slug})`,
@@ -53,7 +64,22 @@ const ItemMasherModal: React.FunctionComponent<Props> = (props) => {
         <Modal title="Inventory Masher" isOpen={isOpen} onClose={onClose}>
             <VList>
                 <div>Use this modal to forcibly mash together all of your items within a certain range.</div>
-                <CheckBox id="mash-used-items" label="Mash already used items" onToggle={setMashUsedItems} selected={mashUsedItems} />
+
+                <HList>
+                    <CheckBox
+                        id="mash-used-items"
+                        label="Mash already used items"
+                        onToggle={setMashUsedItems}
+                        selected={mashUsedItems}
+                    />
+                    <CheckBox
+                        id="mash-other-items"
+                        label="Show items from other puzzles"
+                        onToggle={setOtherPuzzleItems}
+                        selected={otherPuzzleItems}
+                    />
+                </HList>
+
                 <label>Start from:</label>
                 <Select options={masherOptions} onSelectChange={setMasher1Slug} />
                 <label>End at:</label>

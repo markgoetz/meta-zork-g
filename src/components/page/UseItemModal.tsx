@@ -10,6 +10,7 @@ import CheckBox from '../common/Checkbox';
 
 type Props = {
     slugToUse?: string;
+    puzzleSlug?: string,
     doodads: Doodad[];
     inventory: InventoryItem[];
     onSelectItem: (otherSlug: string) => void,
@@ -17,8 +18,9 @@ type Props = {
 };
 
 const UseItemModal: React.FunctionComponent<Props> = (props) => {
-    const { onSelectItem, inventory, doodads, slugToUse, onClose } = props;
+    const { onSelectItem, puzzleSlug, inventory, doodads, slugToUse, onClose } = props;
     const [showUsedItems, setShowUsedItems] = useState(false);
+    const [showOtherItems, setShowOtherItems] = useState(false);
     const [otherSlug, setOtherSlug] = useState('');
     useEffect(
         () => { setOtherSlug('') },
@@ -37,7 +39,16 @@ const UseItemModal: React.FunctionComponent<Props> = (props) => {
 
     const mostRecentInventory = [...inventory];
     mostRecentInventory.reverse();
-    const sourceInventory = showUsedItems ? mostRecentInventory : mostRecentInventory.filter(item => item.neverUsed);
+    const sourceInventory = mostRecentInventory.filter(
+        item => {
+            if (!showUsedItems && !item.neverUsed) {
+                return false;
+            } else if (!showOtherItems && item.puzzleSlug !== puzzleSlug) {
+                return false;
+            }
+            return true;
+        }
+    );
 
     const options = [
         ...doodads.map(doodad => ({ value: doodad.slug, label: `${doodad.lookMessage} (${doodad.slug})` })),
@@ -51,7 +62,20 @@ const UseItemModal: React.FunctionComponent<Props> = (props) => {
                     <div>Select an item to use {slugToUse} on.</div>
                     <Select id="item-to-use" onSelectChange={setOtherSlug} value={otherSlug} options={options} />
                 </label>
-                <CheckBox id="show-used-items" label="Show used items" selected={showUsedItems} onToggle={setShowUsedItems} />
+                <HList>
+                    <CheckBox
+                        id="use-item-show-used-items"
+                        label="Show used items"
+                        selected={showUsedItems}
+                        onToggle={setShowUsedItems}
+                    />
+                    <CheckBox
+                        id="use-item-other-puzzles"
+                        label="Show items from other puzzles"
+                        selected={showOtherItems}
+                        onToggle={setShowOtherItems}
+                    />
+                </HList>
                 <HList>
                     <Button type="button" theme="link" onClick={onClose}>Cancel</Button>
                     <Button onClick={onSubmit}>Use it</Button>

@@ -109,6 +109,7 @@ const Sidebar: React.FunctionComponent<Props> = (props) => {
                 </Box>
             </div>
             <UseItemModal
+                puzzleSlug={room?.puzzleSlug}
                 slugToUse={slugToUse}
                 inventory={inventory ?? []}
                 doodads={room?.doodads ?? []}

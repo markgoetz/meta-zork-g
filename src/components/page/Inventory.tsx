@@ -106,6 +106,7 @@ const Inventory: React.FunctionComponent<Props> = (props) => {
                 onClose={() => setShowMasherModal(false)}
                 inventory={mostRecentInventory}
                 onMashInventory={onMashInventory}
+                puzzleSlug={currentPuzzleSlug}
             />
         </StickyHeaderContainer>
     );

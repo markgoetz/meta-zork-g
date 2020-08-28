@@ -31,7 +31,7 @@ const WriteNoteModal: React.FunctionComponent<Props> = (props) => {
     };
 
     return (
-        <Modal title="Use Item" isOpen={isOpen} onClose={onClose}>
+        <Modal title="Write a Lovely Note" isOpen={isOpen} onClose={onClose}>
             <VList>
                 <label>
                     <div>Please enter the text for your lovely note.</div>
