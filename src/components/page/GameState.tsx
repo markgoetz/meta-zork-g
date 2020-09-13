@@ -10,6 +10,7 @@ import sleep from '../../lib/sleep';
 import GameActions from '../../definitions/GameActions';
 import uniqueSlugs from '../../lib/uniqueSlugs';
 import Puzzle from '../../definitions/Puzzle';
+import { haveItemsBeenMashed, markItemsMashed } from '../../lib/mashedItems';
 
 type Props = {
     children: (
@@ -137,15 +138,16 @@ const GameState: React.FunctionComponent<Props> = (props) => {
                 const slugA = sourceInventory[i].slug;
                 const slugB = sourceInventory[j].slug;
 
-                console.log(`Mashing ${slugA} and ${slugB}`);
+                if (!haveItemsBeenMashed(slugA, slugB)) {
+                    if (slugA !== slugB) {
+                        await doodadApi.useOnOther(slugA, slugB);
+                    } else {
+                        await doodadApi.useOnSelf(slugA);
+                    }
 
-                if (slugA !== slugB) {
-                    await doodadApi.useOnOther(slugA, slugB);
-                } else {
-                    await doodadApi.useOnSelf(slugA);
+                    markItemsMashed(slugA, slugB);
+                    await sleep(700);
                 }
-
-                await sleep(700);
             }
         }
 

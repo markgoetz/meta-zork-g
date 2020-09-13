@@ -67,7 +67,7 @@ const RoomDescription: React.FunctionComponent<Props> = (props) => {
     return (
         <div css={mainStyle}>
             <div css={descriptionStyle}>
-                <Box title="Current Room" header={<span>({room?.puzzleSlug})</span>}>
+                <Box title="Current Room" header={<span>({room?.slug})</span>}>
                     <VList>
                         <div>{(room != null && room.description)}</div>
                         <HList>
