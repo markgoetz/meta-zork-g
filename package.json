@@ -20,6 +20,7 @@
     "typescript": "~3.7.2"
   },
   "resolutions": {
+    "immer": "^8.0.1",
     "object-path": "^0.11.5"
   },
   "scripts": {
